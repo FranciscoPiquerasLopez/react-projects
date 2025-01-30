@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useReducer, useState } from "react";
 import ListaDeFrutasConAgregar from "./ListaDeFrutasConAgregar";
 import ListaDeFrutasConEliminar from "./ListaDeFrutasConEliminar";
 import ListaDeFrutasConModificar from "./ListaDeFrutasConModificar";
@@ -6,41 +6,48 @@ import ListaDeFrutasFiltradas from "./ListaDeFrutasFiltradas";
 import ListaDeFrutasOrdenada from "./ListaDeFrutasOrdenada";
 import CarritoDeCompras from "./CarritoDeCompras";
 import AgregarProductoCarrito from "./AgregarProductoCarrito";
+import fruitReducer from "../utils/fruitReducer";
 
 export default function ListaDeFrutas() {
 
-    const [fruits, setFruits] = useState(["Manzana", "Banana", "Cereza"]);
+    // Initial fruits
+    const initialStateFruits = ["Manzana", "Banana", "Cereza"];
+
+    // useReducer
+    const [fruits, dispatch] = useReducer(fruitReducer, initialStateFruits);
+
+    // useState
     const [copyFruits, setCopyFruits] = useState(fruits);
     const [filtered, setFiltered] = useState(false);
     const [cart, setCart] = useState([]);
 
     function handleClickAddFruit(fruitToAdd) {
-        const newArrayFruits = [...fruits];
-        newArrayFruits.push(fruitToAdd);
-        setFruits(newArrayFruits);
-        setCopyFruits(newArrayFruits);
+        dispatch({
+            type: 'added',
+            fruit: fruitToAdd
+        });
     }
 
     function handleClickDeleteFruit(indexFruitToDelete) {
-        const newArrayFruits = [...fruits];
-        newArrayFruits.splice(indexFruitToDelete, 1);
-        setFruits(newArrayFruits);
-        setCopyFruits(newArrayFruits);
+        dispatch({
+            type: 'deleted',
+            fruit: fruits[indexFruitToDelete]
+        });
     }
 
     function handleClickEditFruit(fruitName, index) {
-        const newArrayFruits = [...fruits];
-        newArrayFruits.splice(index, 1, fruitName);
-        setFruits(newArrayFruits);
-        setCopyFruits(newArrayFruits);
+        dispatch({
+            type: 'edited',
+            fruit: fruitName,
+            indexFruit: index
+        });
     }
 
     function sortArrayFruits(valueCheckToSortFruits) {
-        const newArrayFruits = [...fruits];
-
-        valueCheckToSortFruits ? setFiltered(true) : setFiltered(false);
-        valueCheckToSortFruits ? newArrayFruits.sort() : newArrayFruits.sort((a, b) => b.localeCompare(a));
-        setFruits(newArrayFruits);
+        dispatch({
+            type: 'sorted',
+            checkValue: valueCheckToSortFruits
+        });
     }
 
     function filtrateArrayByFruitSearchInput(fruitName) {
