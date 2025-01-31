@@ -1,4 +1,4 @@
-import { useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import ListaDeFrutasConAgregar from "./ListaDeFrutasConAgregar";
 import ListaDeFrutasConEliminar from "./ListaDeFrutasConEliminar";
 import ListaDeFrutasConModificar from "./ListaDeFrutasConModificar";
@@ -17,9 +17,13 @@ export default function ListaDeFrutas() {
     const [fruits, dispatch] = useReducer(fruitReducer, initialStateFruits);
 
     // useState
-    const [copyFruits, setCopyFruits] = useState(fruits);
+    const [filteredFruits, setFilteredFruits] = useState(fruits);
     const [filtered, setFiltered] = useState(false);
     const [cart, setCart] = useState([]);
+
+    useEffect(() => {
+        setFilteredFruits(fruits);
+    }, [fruits]);
 
     function handleClickAddFruit(fruitToAdd) {
         dispatch({
@@ -51,19 +55,17 @@ export default function ListaDeFrutas() {
     }
 
     function filtrateArrayByFruitSearchInput(fruitName) {
-        const newArrayFiltrated = copyFruits.filter(fruit => {
-            const fruitValueArray = fruit.toLowerCase();
-            const fruitToSearch = fruitName.toLowerCase();
+        const fruitNameTrimmed = fruitName.trim().toLowerCase();
 
-            return fruitValueArray.indexOf(fruitToSearch) != -1;
-        })
+        const newArrayFiltrated = fruitNameTrimmed === ""
+            ? fruits
+            : fruits.filter(fruit => fruit.toLowerCase().includes(fruitNameTrimmed));
 
-        fruitName.trim() === "" ? setFiltered(false) : setFiltered(true);
-        fruitName.trim() === "" ? setFruits(copyFruits) : setFruits(newArrayFiltrated);
+        setFiltered(fruitNameTrimmed !== "");
+        setFilteredFruits(newArrayFiltrated);
     }
 
     function handleClickAddFruitToCart(indexFruitToAddCart) {
-
         if (cart.indexOf(cart[indexFruitToAddCart]) !== -1) return;
 
         const newCart = [...cart];
@@ -89,7 +91,7 @@ export default function ListaDeFrutas() {
 
                 <ul>
                     {
-                        fruits.map((fruit, index) => {
+                        filteredFruits.map((fruit, index) => {
                             return (
                                 <li key={fruit} className="showFruits">
                                     {fruit}
