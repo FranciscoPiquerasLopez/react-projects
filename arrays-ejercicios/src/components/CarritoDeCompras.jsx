@@ -1,7 +1,7 @@
 import { useState } from "react"
 import ListaProductosCarrito from "./ListaProductosCarrito";
 
-export default function CarritoDeCompras({ listFruits }) {
+export default function CarritoDeCompras() {
 
     const [listProduct, setListProduct] = useState("false");
 
@@ -20,7 +20,7 @@ export default function CarritoDeCompras({ listFruits }) {
                     )
             }
             <div className={"list-products " + (listProduct ? "showProductList" : "hideProductList")}>
-                <ListaProductosCarrito listFruits={listFruits}></ListaProductosCarrito>
+                <ListaProductosCarrito></ListaProductosCarrito>
             </div>
         </div>
     )

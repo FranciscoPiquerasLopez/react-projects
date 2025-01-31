@@ -1,4 +1,10 @@
-export default function ListaProductosCarrito({ listFruits }) {
+import { useContext } from "react"
+import { ListFruitContext } from "../utils/ListFruitContext";
+
+export default function ListaProductosCarrito() {
+
+    const listFruits = useContext(ListFruitContext);
+
     return (
         <ul>
             {

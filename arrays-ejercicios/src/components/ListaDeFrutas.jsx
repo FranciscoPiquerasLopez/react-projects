@@ -7,6 +7,7 @@ import ListaDeFrutasOrdenada from "./ListaDeFrutasOrdenada";
 import CarritoDeCompras from "./CarritoDeCompras";
 import AgregarProductoCarrito from "./AgregarProductoCarrito";
 import fruitReducer from "../utils/fruitReducer";
+import { ListFruitContext } from "../utils/ListFruitContext";
 
 export default function ListaDeFrutas() {
 
@@ -77,7 +78,9 @@ export default function ListaDeFrutas() {
 
     return (
         <>
-            <CarritoDeCompras listFruits={cart}></CarritoDeCompras>
+            <ListFruitContext.Provider value={cart}>
+                <CarritoDeCompras />
+            </ListFruitContext.Provider>
 
             <div className="containerFruits">
 
