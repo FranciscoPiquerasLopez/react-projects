@@ -1,7 +1,7 @@
-export default function AgregarProductoCarrito({ index, onClick }) {
+export default function AgregarProductoCarrito({ fruitToAdd, onClick }) {
 
     const handleClickAddFruitToCart = () => {
-        onClick(index);
+        onClick(fruitToAdd);
     }
 
     return (

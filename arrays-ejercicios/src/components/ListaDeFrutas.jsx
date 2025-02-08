@@ -8,6 +8,7 @@ import CarritoDeCompras from "./CarritoDeCompras";
 import AgregarProductoCarrito from "./AgregarProductoCarrito";
 import fruitReducer from "../utils/fruitReducer";
 import { ListFruitContext } from "../utils/ListFruitContext";
+import useCart from "../hooks/useCart";
 
 export default function ListaDeFrutas() {
 
@@ -20,7 +21,9 @@ export default function ListaDeFrutas() {
     // useState
     const [filteredFruits, setFilteredFruits] = useState(fruits);
     const [filtered, setFiltered] = useState(false);
-    const [cart, setCart] = useState([]);
+
+    // Custom Hooks
+    const [cart, addCart] = useCart();
 
     useEffect(() => {
         setFilteredFruits(fruits);
@@ -66,16 +69,6 @@ export default function ListaDeFrutas() {
         setFilteredFruits(newArrayFiltrated);
     }
 
-    function handleClickAddFruitToCart(indexFruitToAddCart) {
-        if (cart.indexOf(cart[indexFruitToAddCart]) !== -1) return;
-
-        const newCart = [...cart];
-        const fruitToAdd = fruits[indexFruitToAddCart];
-
-        newCart.push(fruitToAdd);
-        setCart(newCart);
-    }
-
     return (
         <>
             <ListFruitContext.Provider value={cart}>
@@ -111,8 +104,8 @@ export default function ListaDeFrutas() {
                                     </ListaDeFrutasConModificar>
 
                                     <AgregarProductoCarrito
-                                        index={index}
-                                        onClick={handleClickAddFruitToCart}>
+                                        fruitToAdd={fruit}
+                                        onClick={addCart}>
                                     </AgregarProductoCarrito>
                                 </li>
                             )

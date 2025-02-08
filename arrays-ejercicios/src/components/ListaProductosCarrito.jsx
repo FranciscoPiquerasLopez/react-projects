@@ -4,7 +4,7 @@ import { ListFruitContext } from "../utils/ListFruitContext";
 export default function ListaProductosCarrito() {
 
     const listFruits = useContext(ListFruitContext);
-
+    
     return (
         <ul>
             {
