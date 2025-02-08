@@ -1,0 +1,61 @@
+button {
+  background-color: #5966d8;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+select {
+  background: rgb(231, 230, 230);
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.parent {
+  width: 500px;
+  height: 500px;
+  background: #fff;
+  border-radius: 30px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.parent h1 {
+  text-align: center;
+  color: #4D6691;
+}
+
+.nav-tasks {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.container-tasks {
+  display: flex;
+  flex-direction: column;
+  background: rgb(231, 230, 230);
+  gap: 20px;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.container-tasks .task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.show-task, .options-task {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}

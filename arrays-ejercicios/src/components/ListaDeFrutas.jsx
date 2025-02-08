@@ -17,7 +17,7 @@ export default function ListaDeFrutas() {
 
     // useReducer
     const [fruits, dispatch] = useReducer(fruitReducer, initialStateFruits);
-
+    
     // useState
     const [filteredFruits, setFilteredFruits] = useState(fruits);
     const [filtered, setFiltered] = useState(false);
