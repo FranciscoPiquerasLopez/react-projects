@@ -1,23 +1,33 @@
 import './App.css'
-import Tasks from './components/tasks'
+import NavbarTasks from './components/NavbarTasks'
+import TasksList from './components/TasksList'
 
 function App() {
+
+  const tasks = [
+    {
+      title: 'Create a react project',
+      category: 'all'
+    },
+    {
+      title: 'Create another react project',
+      category: 'task'
+    }
+  ];
+
+  const categoryArray = tasks.reduce((acc, task) => {
+    if (!acc.includes(task.category)) {
+      acc.push(task.category);
+    }
+    return acc;
+  }, [] as string[]);
+
   return (
     <div className='parent'>
       <h1>Lista de tareas</h1>
       <main>
-        <div className='nav-tasks'>
-          <button>Añadir tarea</button>
-          <select name="friltroTareas" id="friltroTareas">
-            <option value="todas">Todas</option>
-            <option value="primera">Categoría 1</option>
-            <option value="segunda">Categoría 2</option>
-          </select>
-        </div>
-        <div className="container-tasks">
-          <Tasks title={'Create a react project'}></Tasks>
-          <Tasks title={'Create a react project'}></Tasks>
-        </div>
+        <NavbarTasks categories={categoryArray} />
+        <TasksList tasks={tasks} />
       </main>
     </div>
   )

@@ -54,7 +54,7 @@ select {
   padding: 10px;
 }
 
-.show-task, .options-task {
+.show-task label, .options-task {
   display: flex;
   align-items: center;
   gap: 5px;
