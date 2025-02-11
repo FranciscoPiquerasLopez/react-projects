@@ -1,3 +1,6 @@
+import { IconButton } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import { TaskInterface } from "../interfaces/TaskInterface";
 
 
@@ -13,8 +16,12 @@ export default function Tasks({ title, category }: TaskInterface) {
                     <span>Categoría: {category}</span>
                 </div>
                 <div className="options-task">
-                    <button><img width={15} src="src/assets/rubbish-bin.svg" alt="Icono de eliminar" /></button>
-                    <button><img width={15} src="src/assets/pencil.svg" alt="Icono de editar" /></button>
+                    <IconButton aria-label="delete">
+                        <DeleteIcon />
+                    </IconButton>
+                    <IconButton aria-label="edit">
+                        <EditIcon />
+                    </IconButton>
                 </div>
             </div>
         </div >

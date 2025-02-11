@@ -1,7 +1,12 @@
-import { useState } from "react"
-import Typography from '@mui/material/Typography';
+import React, { useState } from "react"
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
+import Input from "./Input";
+
+interface NavbarTasksProps {
+    categories: string[],
+    onClick: (newTask: { title: string, category: string }) => void
+}
 
 const style = {
     position: 'absolute',
@@ -15,9 +20,17 @@ const style = {
     p: 4,
 };
 
-export default function NavbarTasks({ categories }: { categories: string[] }) {
+export default function NavbarTasks({ categories, onClick }: NavbarTasksProps) {
 
     const [open, setOpen] = useState(false);
+    const [title, setTitle] = useState("");
+    const [category, setCategory] = useState("");
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement | HTMLButtonElement>) => {
+        e.preventDefault();
+        setOpen(false);
+        onClick({ title, category });
+    }
 
     return (
         <>
@@ -36,12 +49,23 @@ export default function NavbarTasks({ categories }: { categories: string[] }) {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Text in a modal
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                    </Typography>
+                    <form onSubmit={handleSubmit} className='addTaskForm'>
+                        <Input
+                            type="text"
+                            name="tarea"
+                            id="tarea"
+                            placeholder="Tarea"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)} />
+                        <Input
+                            type="text"
+                            name="categoria"
+                            id="categoria"
+                            placeholder="Categoría"
+                            value={category}
+                            onChange={(e) => setCategory(e.target.value)} />
+                        <button onClick={handleSubmit}>Enviar</button>
+                    </form>
                 </Box>
             </Modal>
         </>
