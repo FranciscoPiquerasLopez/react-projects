@@ -1,36 +1,18 @@
-import { useState } from 'react';
 import './App.css'
 import NavbarTasks from './components/NavbarTasks'
 import TasksList from './components/TasksList'
+import useTasks from './hooks/useTasks'
 
 function App() {
 
-  const [tasks, setTasks] = useState(
-    [
-      {
-        title: 'Create a react project',
-        category: 'all'
-      }
-    ]
-  );
-
-  const categoryArray = tasks.reduce((acc, task) => {
-    if (!acc.includes(task.category)) {
-      acc.push(task.category);
-    }
-    return acc;
-  }, [] as string[]);
-
-  const handleAddTask = (newTask: { title: string, category: string }) => {
-    setTasks([...tasks, newTask]);
-  }
+  const [tasks, handleAddTask] = useTasks();
 
   return (
     <div className='parent'>
       <h1>Lista de tareas</h1>
       <main>
-        <NavbarTasks categories={categoryArray} onClick={handleAddTask} />
-        <TasksList tasks={tasks} />
+        <NavbarTasks tasks={tasks} addTask={handleAddTask}></NavbarTasks>
+        <TasksList tasks={tasks}></TasksList>
       </main>
     </div>
   )

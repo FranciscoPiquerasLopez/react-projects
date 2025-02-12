@@ -1,11 +1,12 @@
-import React, { useState } from "react"
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Input from "./Input";
+import { useState } from 'react';
+import { TaskInterface } from '../interfaces/TaskInterface';
 
-interface NavbarTasksProps {
-    categories: string[],
-    onClick: (newTask: { title: string, category: string }) => void
+interface NavbarTasks {
+    tasks: TaskInterface[],
+    addTask: (newTask: { title: string, category: string }) => void,
 }
 
 const style = {
@@ -20,7 +21,7 @@ const style = {
     p: 4,
 };
 
-export default function NavbarTasks({ categories, onClick }: NavbarTasksProps) {
+export default function NavbarTasks({ tasks, addTask }: NavbarTasks) {
 
     const [open, setOpen] = useState(false);
     const [title, setTitle] = useState("");
@@ -28,9 +29,18 @@ export default function NavbarTasks({ categories, onClick }: NavbarTasksProps) {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement | HTMLButtonElement>) => {
         e.preventDefault();
+        addTask({ title, category });
         setOpen(false);
-        onClick({ title, category });
+        setTitle("");
+        setCategory("");
     }
+
+    const categoryArray = tasks.reduce((acc, task) => {
+        if (!acc.includes(task.category)) {
+            acc.push(task.category);
+        }
+        return acc;
+    }, [] as string[]);
 
     return (
         <>
@@ -38,7 +48,7 @@ export default function NavbarTasks({ categories, onClick }: NavbarTasksProps) {
                 <button onClick={() => setOpen(true)}>Añadir tarea</button>
                 <select name="friltroTareas" id="friltroTareas">
                     {
-                        categories.map(category => <option id={category}>{category}</option>)
+                        categoryArray.map(category => <option key={category} id={category}>{category}</option>)
                     }
                 </select>
             </div>

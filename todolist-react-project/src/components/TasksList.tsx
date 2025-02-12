@@ -1,7 +1,7 @@
-import { TasksListInterface } from "../interfaces/TaskListInterface";
+import { TaskInterface } from "../interfaces/TaskInterface"
 import Tasks from "./Tasks"
 
-export default function TasksList({ tasks }: TasksListInterface) {
+export default function TasksList({ tasks }: { tasks: TaskInterface[] }) {
     return (
         <>
             {
