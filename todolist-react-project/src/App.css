@@ -54,6 +54,15 @@ select {
   padding: 10px;
 }
 
+.show-task {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 400;
+}
+
+.show-task label {
+  margin-bottom: 5px;
+}
+
 .show-task label,
 .options-task {
   display: flex;
@@ -72,4 +81,8 @@ select {
   border-radius: 10px;
   padding: 10px 10px;
   box-shadow: 2px 2px 40px -8px rgba(0, 0, 0, 0.25);
+}
+
+.line-through {
+  text-decoration: line-through;
 }
