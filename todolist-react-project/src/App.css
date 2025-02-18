@@ -17,7 +17,7 @@ select {
 }
 
 .parent {
-  width: 500px;
+  min-width: 450px;
   height: 515px;
   background: #fff;
   border-radius: 15px 15px 15px 15px;

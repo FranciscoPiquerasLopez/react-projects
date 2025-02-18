@@ -1,15 +1,13 @@
-import { useState } from 'react';
-import { TaskInterface } from '../interfaces/TaskInterface';
+import { useTaskContext } from '../context/taskContext';
 import ModalComponent from './ModalComponent';
+import { useState } from 'react';
 
-interface NavbarTasks {
-    tasks: TaskInterface[],
-    addTask: (newTask: { title: string, category: string }) => void,
-    select: (categorySelected: string) => void
-}
+export default function NavbarTasks() {
 
-export default function NavbarTasks({ tasks, addTask, select }: NavbarTasks) {
+    // Custom hooks
+    const { tasks, handleAddTask, handleFilter } = useTaskContext();
 
+    // States
     const [open, setOpen] = useState<boolean>(false);
 
     const categoryArray = tasks.reduce((acc, task) => {
@@ -20,11 +18,11 @@ export default function NavbarTasks({ tasks, addTask, select }: NavbarTasks) {
     }, ["Todas"] as string[]);
 
     const handleSubmit = (title: string, category: string) => {
-        addTask({ title, category });
+        handleAddTask({ title, category });
     }
 
     const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        select(e.target.value);
+        handleFilter(e.target.value);
     }
 
     return (
@@ -37,7 +35,12 @@ export default function NavbarTasks({ tasks, addTask, select }: NavbarTasks) {
                     }
                 </select>
             </div>
-            <ModalComponent submit={handleSubmit} open={open} setOpen={setOpen} titleProp="" categoryProp="" />
+            <ModalComponent
+                submit={handleSubmit}
+                open={open}
+                setOpen={setOpen}
+                titleProp=""
+                categoryProp="" />
         </>
     )
 }

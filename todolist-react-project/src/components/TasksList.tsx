@@ -1,13 +1,16 @@
-import { TaskInterface } from "../interfaces/TaskInterface"
+import { useTaskContext } from "../context/taskContext";
 import Tasks from "./Tasks"
 
-export default function TasksList({ tasks, handleDelete, editTask }: { tasks: TaskInterface[], handleDelete: (task: TaskInterface) => void, editTask: (task: TaskInterface, index: number) => void }) {
+export default function TasksList() {
+
+    const { tasks, deleteTask, editTask } = useTaskContext();
+    
     return (
         <div className="container-tasks">
             {
                 tasks.map((task, index) => {
                     return (
-                        <Tasks key={index} index={index} title={task.title} category={task.category} handleDelete={handleDelete} handleEdit={editTask} />
+                        <Tasks key={index} index={index} title={task.title} category={task.category} handleDelete={deleteTask} handleEdit={editTask} />
                     )
                 })
             }
