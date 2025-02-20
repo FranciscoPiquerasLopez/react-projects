@@ -1,17 +1,26 @@
-import { useTaskContext } from "../context/taskContext";
+import { useTaskContext } from "../hooks/useTaskContext";
 import Tasks from "./Tasks"
 
 export default function TasksList() {
 
-    const { tasks, deleteTask, editTask } = useTaskContext();
-    
+    const { tasks, tasksFiltrated, deleteTask, handleCheck } = useTaskContext();
+
+    const tasksList = tasksFiltrated.length === 0 ? tasks : tasksFiltrated;
+
     return (
         <div className="container-tasks">
             {
-                tasks.map((task, index) => {
+                tasksList.map((task, index) => {
                     return (
-                        <Tasks key={index} index={index} title={task.title} category={task.category} handleDelete={deleteTask} handleEdit={editTask} />
-                    )
+                        <Tasks
+                            key={task.title}
+                            index={index}
+                            title={task.title}
+                            category={task.category}
+                            check={task.check}
+                            handleDelete={deleteTask}
+                            handleCheck={handleCheck} />
+                    );
                 })
             }
         </div>

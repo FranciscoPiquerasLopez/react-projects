@@ -1,11 +1,11 @@
-import { useTaskContext } from '../context/taskContext';
+import { useTaskContext } from '../hooks/useTaskContext';
 import ModalComponent from './ModalComponent';
 import { useState } from 'react';
 
 export default function NavbarTasks() {
 
     // Custom hooks
-    const { tasks, handleAddTask, handleFilter } = useTaskContext();
+    const { tasks, handleFilter } = useTaskContext();
 
     // States
     const [open, setOpen] = useState<boolean>(false);
@@ -16,10 +16,6 @@ export default function NavbarTasks() {
         }
         return acc;
     }, ["Todas"] as string[]);
-
-    const handleSubmit = (title: string, category: string) => {
-        handleAddTask({ title, category });
-    }
 
     const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
         handleFilter(e.target.value);
@@ -36,7 +32,7 @@ export default function NavbarTasks() {
                 </select>
             </div>
             <ModalComponent
-                submit={handleSubmit}
+                modalType='addTask'
                 open={open}
                 setOpen={setOpen}
                 titleProp=""

@@ -1,7 +1,7 @@
 import './App.css'
 import NavbarTasks from './components/NavbarTasks'
+import { TaskProvider } from './components/TaskProvider'
 import TasksList from './components/TasksList'
-import { TaskProvider } from './context/taskContext';
 
 function App() {
   return (

@@ -1,38 +1,25 @@
 import { Box, Modal } from "@mui/material";
 import { ModalInterface } from "../interfaces/ModalInterface";
-import { useState } from "react";
+import { MODAL_STYLE } from "../constants/style.modal";
 import Input from "./Input";
+import useAddTaskForm from "../hooks/useAddTaskForm";
+import useEditTaskForm from "../hooks/useEditTaskForm";
 
-export default function ModalComponent({ submit, open, setOpen, titleProp, categoryProp, index, handleEdit }: ModalInterface) {
+interface OptionsInterface {
+    title: string;
+    setTitle: React.Dispatch<React.SetStateAction<string>>;
+    category: string;
+    setCategory: React.Dispatch<React.SetStateAction<string>>;
+    handleSubmit?: (e: React.FormEvent<HTMLFormElement | HTMLButtonElement>) => void;
+    handleSubmitEdit?: (e: React.FormEvent<HTMLFormElement | HTMLButtonElement>) => void;
+}
 
-    const style = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: 400,
-        bgcolor: 'background.paper',
-        border: '2px solid #000',
-        boxShadow: 24,
-        p: 4,
-    };
+export default function ModalComponent({ modalType, open, setOpen, titleProp, categoryProp, check, index }: ModalInterface) {
 
-    const [title, setTitle] = useState<string | "">(titleProp);
-    const [category, setCategory] = useState<string | "">(categoryProp);
+    const addTaskOptions = useAddTaskForm();
+    const editTaskOptions = useEditTaskForm({ titleProp, categoryProp, check: check ?? false, index });
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement | HTMLButtonElement>) => {
-        e.preventDefault();
-        submit!(title, category);
-        setOpen(false);
-        setTitle("");
-        setCategory("");
-    }
-
-    const handleSubmitEdit = (e: React.FormEvent<HTMLFormElement | HTMLButtonElement>) => {
-        e.preventDefault();
-        handleEdit!({ title, category }, index!);
-        setOpen(false);
-    }
+    const options: OptionsInterface = modalType === "addTask" ? addTaskOptions : editTaskOptions;
 
     return (
         <>
@@ -42,27 +29,28 @@ export default function ModalComponent({ submit, open, setOpen, titleProp, categ
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box sx={style}>
-                    <form onSubmit={handleSubmit} className='addTaskForm'>
+                <Box sx={MODAL_STYLE}>
+                    <form onSubmit={modalType === "addTask" ? options.handleSubmit : options.handleSubmitEdit} className='addTaskForm'>
                         <Input
                             type="text"
                             name="tarea"
                             id="tarea"
                             placeholder="Tarea"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)} />
+                            value={options.title}
+                            onChange={(e) => options.setTitle(e.target.value)} />
                         <Input
                             type="text"
                             name="categoria"
                             id="categoria"
                             placeholder="Categoría"
-                            value={category}
-                            onChange={(e) => setCategory(e.target.value)} />
+                            value={options.category}
+                            onChange={(e) => options.setCategory(e.target.value)} />
                         {
-                            titleProp === "" && categoryProp === ""
-                                ? <button onClick={handleSubmit}>Enviar</button>
-                                : <button onClick={handleSubmitEdit}>Editar</button>
+                            modalType === "addTask"
+                                ? <button onClick={options.handleSubmit}>Enviar</button>
+                                : <button onClick={options.handleSubmitEdit}>Editar</button>
                         }
+                        <button onClick={() => setOpen(false)}>Cerrar</button>
                     </form>
                 </Box>
             </Modal>

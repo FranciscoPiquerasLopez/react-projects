@@ -7,7 +7,7 @@ body {
   justify-content: center;
   align-items: center;
   background: rgb(83, 34, 189);
-  background: linear-gradient(320deg, rgba(83, 34, 189, 1) 21%, rgba(57, 57, 133, 1) 46%, rgba(36, 36, 176, 1) 79%);
+  background: linear-gradient(320deg, rgb(104, 61, 197) 21%, rgb(112, 35, 236) 46%, rgb(44, 44, 122) 79%);
   background-size: cover;
   background-repeat: no-repeat;
 }
