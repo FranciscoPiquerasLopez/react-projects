@@ -1,6 +1,6 @@
 import { useTaskContext } from '../hooks/useTaskContext';
-import ModalComponent from './ModalComponent';
 import { useState } from 'react';
+import ModalComponent from './ModalComponent';
 
 export default function NavbarTasks() {
 

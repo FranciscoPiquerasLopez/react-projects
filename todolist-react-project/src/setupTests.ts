@@ -1,0 +1,1 @@
+import '@testing-library/jest-dom'; // Librería de jest-dom para los matchers adicionales y tal
