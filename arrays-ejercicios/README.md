@@ -1,8 +1,43 @@
-# React + Vite
+# 🍎 App de Gestión de Frutas y Carrito Interactivo
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Una aplicación web interactiva para agregar, editar y eliminar frutas, con un carrito dinámico para gestionar tus compras en tiempo real.
 
-Currently, two official plugins are available:
+## 🚀 Características
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Gestión de Frutas: Agrega, edita y elimina frutas de manera sencilla.
+- Carrito Interactivo: Agrega frutas al carrito, ajusta cantidades y elimina artículos en tiempo real.
+- Filtros y Búsqueda: Encuentra rápidamente las frutas por nombre.
+- Ordena por frutas con una simple opción.
+- Interfaz Intuitiva: Diseño sencillo y fácil de navegar.
+
+## 🛠️ Tecnologías Utilizadas
+
+- Frontend: React con JavaScript SCW.
+- Estado: useReducer y global context centralizado.
+- Estilo: CSS.
+
+## 📦 Instalación
+
+1. Clona el repositorio:
+
+```
+git clone https://github.com/FranciscoPiquerasLopez/react-projects/tree/main/arrays-ejercicios
+```
+
+2. Instala las dependencias del proyecto
+
+```
+npm install
+```
+
+3. Inicia la aplicación
+
+```
+npm run dev
+```
+
+La aplicación se abrirá en `http://localhost:5173` si usas Vite.
+
+## ⚖️ Licencia
+
+Este proyecto está bajo licencia MIT.
