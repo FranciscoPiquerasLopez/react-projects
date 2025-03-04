@@ -18,7 +18,7 @@ Siempre que vaya realizando proyectos, este repositorio se mantendrá en constan
 
 La mayoría de los proyectos estarán construidos con:
 
-- Reacy y TypeScript.
+- React y TypeScript.
 - Vite.
 - Styled Components / CSS / Tailwind.
 - Material UI.
