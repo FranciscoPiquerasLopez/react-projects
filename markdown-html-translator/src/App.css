@@ -1,1 +1,24 @@
 @import "tailwindcss";
+
+/* Editando el ScrollBar */
+
+/* Para editar el área blanca donde aparece el thumb */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Para editar el área blanca, su color, etc... */
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Para editar el scrollbar thumb, lo que clickamos para desplazarnos básicamente */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #7c7c7c;
+}

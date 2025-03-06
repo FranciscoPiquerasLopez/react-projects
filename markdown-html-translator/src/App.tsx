@@ -3,8 +3,8 @@ import GithubImage from './components/svg/GithuhImage'
 import './App.css'
 
 function App() {
-  const div1 = useRef<HTMLTextAreaElement>(null);
-  const div2 = useRef<HTMLTextAreaElement>(null);
+  const div1 = useRef<HTMLDivElement>(null);
+  const div2 = useRef<HTMLDivElement>(null);
   const container = useRef<HTMLDivElement>(null);
   const lastX = useRef(0);
 
@@ -20,11 +20,15 @@ function App() {
     const newWidth = div1.current!.clientWidth + dx;
 
     // Límites para que ni el div1 ni el div2 se contraiga del todo
-    if (newWidth < 150 || newWidth > container.current!.clientWidth - 150) return;
+    if (newWidth < 250 || newWidth > container.current!.clientWidth - 250) return;
 
     div1.current!.style.width = newWidth + "px";
     div2.current!.style.width = container.current!.clientWidth - newWidth - 6 + "px";
     lastX.current = e.clientX;
+
+    console.log('Div 1: ' + div1.current!.clientWidth);
+    console.log('Div 2: ' + div2.current!.clientWidth);
+    console.log('Container: ' + container.current!.clientWidth);
   }
 
   const stopResize = () => {
@@ -48,22 +52,22 @@ function App() {
             bg-clip-text text-transparent leading-16'>Markdown a HTML</span>
           </h1>
           <div ref={container} className='flex justify-around w-full h-3/5 bg-slate-700 rounded-2xl'>
-            <div className='flex-1 p-3 flex flex-col gap-2'>
-              <h2 className='text-white text-center'>Markdown:</h2>
-              <textarea ref={div1} name="markdown" id="markdown" className='text-white border-0 h-full w-full focus:outline-none resize-none p-3'></textarea>
+            <div ref={div1} className='flex w-full flex-col gap-2'>
+              <h2 className='text-white text-center mt-3 font-bold text-lg'>Markdown</h2>
+              <textarea name="markdown" id="markdown" className='text-white border-0 h-full w-full focus:outline-none resize-none p-4'></textarea>
             </div>
             <div
               className='w-1.5 min-w-1.5 cursor-col-resize bg-gray-600 hover:bg-gray-400'
               onMouseDown={handleDown}
             ></div>
-            <div className='flex-1 p-3 flex flex-col gap-2'>
-              <h2 className='text-white text-center'>HTML:</h2>
-              <textarea ref={div2} name="html" id="html" className='text-white border-0 h-full w-full focus:outline-none resize-none p-3'></textarea>
+            <div ref={div2} className='flex w-full flex-col gap-2'>
+              <h2 className='text-white text-center mt-3 font-bold text-lg'>HTML</h2>
+              <textarea name="html" id="html" className='text-white border-0 h-full w-full focus:outline-none resize-none p-4'></textarea>
             </div>
           </div>
         </main>
         <footer className='flex justify-center items-center'>
-          <span className='text-amber-50'>Hecho por @Francisco</span>
+          <span className='text-amber-50 text-lg font-bold'>Hecho por @Francisco</span>
         </footer>
       </div>
     </>
