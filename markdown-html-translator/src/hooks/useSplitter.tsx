@@ -23,10 +23,6 @@ export default function useSplitter() {
         div1.current!.style.width = newWidth + "px";
         div2.current!.style.width = container.current!.clientWidth - newWidth - 6 + "px";
         lastX.current = e.clientX;
-
-        console.log('Div 1: ' + div1.current!.clientWidth);
-        console.log('Div 2: ' + div2.current!.clientWidth);
-        console.log('Container: ' + container.current!.clientWidth);
     }
 
     const stopResize = () => {

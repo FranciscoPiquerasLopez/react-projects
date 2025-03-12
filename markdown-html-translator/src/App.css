@@ -1,7 +1,24 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
-/* Editando el ScrollBar */
+.prose code {
+    background-color: #f5f5f5;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-family: 'Courier New', monospace;
+    color: #333;
+}
 
+.prose code::before {
+    content: "";
+}
+
+.prose code::after {
+    content: "";
+}
+
+/* --- Editando el ScrollBar --- */
 /* Para editar el área blanca donde aparece el thumb */
 ::-webkit-scrollbar {
     width: 8px;
