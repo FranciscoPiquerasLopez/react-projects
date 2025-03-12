@@ -38,28 +38,46 @@ export default function MarkdownPanel({ div1 }: { div1: React.RefObject<HTMLDivE
         let currentBlockType = "";
         let output = "";
 
+        const openBlock = (typeBlock: string) => {
+            if (typeBlock === "unorderedList") {
+                if (currentBlockType !== "ul") {
+                    closeBlock();
+                    output += "<ul>";
+                    currentBlockType = "ul";
+                }
+            } else if (typeBlock === "orderedList") {
+                if (currentBlockType !== "ol") {
+                    closeBlock();
+                    output += "<ol>";
+                    currentBlockType = "ol";
+                }
+            }
+        };
+
+        const closeBlock = () => {
+            if (currentBlockType === "ul") output += "</ul>";
+            else if (currentBlockType === "ol") output += "</ol>";
+            currentBlockType = "";
+        };
+
         linesMarkdown.forEach(line => {
             if (/^[-+*]\s+(.*)$/.test(line)) {
-                if (currentBlockType !== "list") {
-                    output += "<ul>";
-                    currentBlockType = "list";
-                }
+                openBlock("unorderedList");
                 output += `<li>${line.replace(/^[-+*]\s+/, "")}</li>`;
+            } else if (/^\d+\.\s+(.*)$/.test(line)) {
+                openBlock("orderedList");
+                output += `<li>${line.replace(/^\d+\.\s+/, "")}</li>`;
             } else {
-                if (currentBlockType === "list") {
-                    output += "</ul>";
-                    currentBlockType = "";
-                }
-                output += `<p>${line}</p>`;
+                closeBlock();
+                output += line;
             }
         });
 
-        if (currentBlockType === "list") {
-            output += "</ul>";
-        }
+        closeBlock();
 
         return output;
     };
+
 
     // Uso de Debounce para mejorar rendimiento y evitar renders innecesarios
     const handleChange = debounce((markdownValue: string) => {

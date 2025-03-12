@@ -32,7 +32,7 @@ HTML:
   <li>Item 2</li>
 </ul>
 
-4. Listas ordenadas:
+4. Listas ordenadas: ✅
 
 Markdown:
 1. Primer ítem
