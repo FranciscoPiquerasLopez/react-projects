@@ -6,15 +6,10 @@ interface PatternType {
     typePattern?: string;
 };
 
-interface ReturnPatternLine {
-    lineMarkdown: string;
-    typePattern: string;
-}
-
-const applyPatternsInLine = (lineMarkdown: string, patterns: PatternType[]): ReturnPatternLine | string => {
-    for (const { pattern, replacement, typePattern } of patterns) {
+const applyPatternsInLine = (lineMarkdown: string, patterns: PatternType[]): string => {
+    for (const { pattern, replacement } of patterns) {
         if (pattern.test(lineMarkdown)) {
-            return { lineMarkdown: lineMarkdown.replace(pattern, replacement), typePattern: typePattern! };
+            return lineMarkdown.replace(pattern, replacement);
         }
     }
     return lineMarkdown;
