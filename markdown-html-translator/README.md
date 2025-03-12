@@ -20,7 +20,7 @@ HTML:
 <em>texto en itálica</em>
 <strong>texto en negrita</strong>
 
-3. Listas desordenadas con el -, * o +
+3. Listas desordenadas con el -, * o + ✅
 
 Markdown:
 - Item 1

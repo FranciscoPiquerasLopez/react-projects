@@ -33,12 +33,41 @@ export default function MarkdownPanel({ div1 }: { div1: React.RefObject<HTMLDivE
             .join(" ");
     };
 
+    const parseMarkdownParagraphs = (markdownText: string): string => {
+        const linesMarkdown = markdownText.split("\n");
+        let currentBlockType = "";
+        let output = "";
+
+        linesMarkdown.forEach(line => {
+            if (/^[-+*]\s+(.*)$/.test(line)) {
+                if (currentBlockType !== "list") {
+                    output += "<ul>";
+                    currentBlockType = "list";
+                }
+                output += `<li>${line.replace(/^[-+*]\s+/, "")}</li>`;
+            } else {
+                if (currentBlockType === "list") {
+                    output += "</ul>";
+                    currentBlockType = "";
+                }
+                output += `<p>${line}</p>`;
+            }
+        });
+
+        if (currentBlockType === "list") {
+            output += "</ul>";
+        }
+
+        return output;
+    };
+
     // Uso de Debounce para mejorar rendimiento y evitar renders innecesarios
     const handleChange = debounce((markdownValue: string) => {
         setMarkdownText(markdownValue);
         const markdownParsedInLines = parseMarkdownLines(markdownValue);
         const markdownParsedWords = parseMarkdownWords(markdownParsedInLines);
-        setHtmlText(markdownParsedWords);
+        const markdownParsedParagraphs = parseMarkdownParagraphs(markdownParsedWords);
+        setHtmlText(markdownParsedParagraphs);
     }, 300);
 
     return (
