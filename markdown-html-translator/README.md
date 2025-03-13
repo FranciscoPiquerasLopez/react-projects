@@ -44,17 +44,19 @@ HTML:
   <li>Segundo ítem</li>
 </ol>
 
-4. Enlaces:
+4. Enlaces: ✅
 
 Markdown:
 [Texto del enlace](https://www.example.com)
-[Enlace con título](https://www.example.com "Título opcional")
+[Texto del enlace](https://www.example.com "Título opcional")
 
 HTML:
-<a href="https://www.example.com">Texto del enlace</a>
-<a href="https://www.example.com" title="Título opcional">Enlace con título</a>
+<p>
+  <a href="https://www.example.com">Texto del enlace</a>
+  <a href="https://www.example.com" title="Título opcional">Texto del enlace</a>
+</p>
 
-5. Imágenes:
+5. Imágenes: ✅
 
 Markdown:
 ![Texto alternativo](https://www.example.com/imagen.jpg)

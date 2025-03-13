@@ -40,33 +40,63 @@ export default function MarkdownPanel({ div1 }: { div1: React.RefObject<HTMLDivE
 
         const openBlock = (typeBlock: string) => {
             if (typeBlock === "unorderedList") {
-                if (currentBlockType !== "ul") {
+                if (currentBlockType !== "ul") { // Entra cuando no es ul
                     closeBlock();
                     output += "<ul>";
                     currentBlockType = "ul";
                 }
             } else if (typeBlock === "orderedList") {
-                if (currentBlockType !== "ol") {
+                if (currentBlockType !== "ol") { // Entra cuando no es ol
                     closeBlock();
                     output += "<ol>";
                     currentBlockType = "ol";
+                }
+            } else if (typeBlock === "link") {
+                if (currentBlockType !== "p") {
+                    closeBlock();
+                    output += "<p>";
+                    currentBlockType = "p";
+                }
+            } else if (typeBlock === "image") {
+                if (currentBlockType !== "pimage") {
+                    closeBlock();
+                    output += "<p>";
+                    currentBlockType = "pimage";
                 }
             }
         };
 
         const closeBlock = () => {
             if (currentBlockType === "ul") output += "</ul>";
-            else if (currentBlockType === "ol") output += "</ol>";
-            currentBlockType = "";
+            else if (currentBlockType === "ol") {
+                output += "</ol>";
+                currentBlockType = "";
+            } else if (currentBlockType === "p") {
+                output += "</p>";
+                currentBlockType = "";
+            } else if (currentBlockType === "pimage") {
+                output += "</p>";
+                currentBlockType = "";
+            }
         };
 
         linesMarkdown.forEach(line => {
-            if (/^[-+*]\s+(.*)$/.test(line)) {
+            if (/^[-+*]\s+(.*)$/.test(line)) { // Regex para listas desordenadas
                 openBlock("unorderedList");
                 output += `<li>${line.replace(/^[-+*]\s+/, "")}</li>`;
-            } else if (/^\d+\.\s+(.*)$/.test(line)) {
+            } else if (/^\d+\.\s+(.*)$/.test(line)) { // Regex para listas ordenadas
                 openBlock("orderedList");
                 output += `<li>${line.replace(/^\d+\.\s+/, "")}</li>`;
+            } else if (/\[(.*?)\]\((https?:\/\/[^\s)]+)(?:\s+"(.*?)")?\)/.test(line)) { // Regex para los enlaces
+                openBlock("link");
+                output += line.replace(/\[(.*?)\]\((https?:\/\/[^\s)]+)(?:\s+"(.*?)")?\)/g, (_match, text, url, title) => {
+                    return `<a href="${url}"${title ? ` title="${title}"` : ""}>${text}</a>`;
+                });
+            } else if (/<img\s+src="(.*?)"\s+alt="(.*?)"\s*\/?>/.test(line)) {
+                openBlock("image");
+                output += line.replace(/<img\s+src="(.*?)"\s+alt="(.*?)"\s*\/?>/g, (_match, url, alt) => {
+                    return `<img src="${url}" ${alt ? ` alt="${alt}"` : ""} />`;
+                });
             } else {
                 closeBlock();
                 output += line;
