@@ -1,6 +1,14 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+blockquote p::before {
+    content: "";
+}
+
+blockquote p::after {
+    content: "";
+}
+
 .prose code {
     background-color: #f5f5f5;
     padding: 2px 4px;

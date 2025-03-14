@@ -21,16 +21,13 @@ export default function MarkdownPanel({ div1 }: { div1: React.RefObject<HTMLDivE
     };
 
     const parseMarkdownWords = (markdownText: string): string => {
-        return markdownText
-            .split(" ")
-            .map(word => {
-                for (const transform of transformationWords) {
-                    const newWord = transform(word);
-                    if (newWord !== word) return newWord;
-                }
-                return word;
-            })
-            .join(" ");
+        let resultText = markdownText;
+
+        for (const transform of transformationWords) {
+            resultText = resultText.replace(transform.pattern, transform.replacement);
+        }
+
+        return resultText;
     };
 
     const parseMarkdownParagraphs = (markdownText: string): string => {
@@ -40,13 +37,13 @@ export default function MarkdownPanel({ div1 }: { div1: React.RefObject<HTMLDivE
 
         const openBlock = (typeBlock: string) => {
             if (typeBlock === "unorderedList") {
-                if (currentBlockType !== "ul") { // Entra cuando no es ul
+                if (currentBlockType !== "ul") {
                     closeBlock();
                     output += "<ul>";
                     currentBlockType = "ul";
                 }
             } else if (typeBlock === "orderedList") {
-                if (currentBlockType !== "ol") { // Entra cuando no es ol
+                if (currentBlockType !== "ol") {
                     closeBlock();
                     output += "<ol>";
                     currentBlockType = "ol";
@@ -63,6 +60,18 @@ export default function MarkdownPanel({ div1 }: { div1: React.RefObject<HTMLDivE
                     output += "<p>";
                     currentBlockType = "pimage";
                 }
+            } else if (typeBlock === "task") {
+                if (currentBlockType !== "ultask") {
+                    closeBlock();
+                    output += "<ul>";
+                    currentBlockType = "ultask";
+                }
+            } else if (typeBlock === "quote") {
+                if (currentBlockType !== "blockquote") {
+                    closeBlock();
+                    output += "<blockquote>";
+                    currentBlockType = "blockquote";
+                }
             }
         };
 
@@ -77,29 +86,46 @@ export default function MarkdownPanel({ div1 }: { div1: React.RefObject<HTMLDivE
             } else if (currentBlockType === "pimage") {
                 output += "</p>";
                 currentBlockType = "";
+            } else if (currentBlockType === "ultask") {
+                output += "</ul>";
+                currentBlockType = "";
+            } else if (currentBlockType === "blockquote") {
+                output += "</blockquote>";
+                currentBlockType = "";
             }
         };
 
         linesMarkdown.forEach(line => {
-            if (/^[-+*]\s+(.*)$/.test(line)) { // Regex para listas desordenadas
+            if (/^[-+*]\s+([^[].*)$/.test(line)) { // Regex para listas desordenadas
                 openBlock("unorderedList");
                 output += `<li>${line.replace(/^[-+*]\s+/, "")}</li>`;
             } else if (/^\d+\.\s+(.*)$/.test(line)) { // Regex para listas ordenadas
                 openBlock("orderedList");
                 output += `<li>${line.replace(/^\d+\.\s+/, "")}</li>`;
-            } else if (/\[(.*?)\]\((https?:\/\/[^\s)]+)(?:\s+"(.*?)")?\)/.test(line)) { // Regex para los enlaces
+            } else if (/^!\[.*?\]\((https?:\/\/[^\s)]+)(?:\s+"(.*?)")?\)/.test(line)) { // Regex para imágenes
+                openBlock("image");
+                output += line.replace(/^!\[.*?\]\((https?:\/\/[^\s)]+)(?:\s+"(.*?)")?\)/g, (_match, url, alt, title) => {
+                    return `<img src="${url}" alt="${alt}"${title ? ` title="${title}"` : ""} />`;
+                });
+            } else if (/\[(.*?)\]\((https?:\/\/[^\s)]+)(?:\s+"(.*?)")?\)/.test(line)) { // Regex para enlaces
                 openBlock("link");
                 output += line.replace(/\[(.*?)\]\((https?:\/\/[^\s)]+)(?:\s+"(.*?)")?\)/g, (_match, text, url, title) => {
                     return `<a href="${url}"${title ? ` title="${title}"` : ""}>${text}</a>`;
                 });
-            } else if (/<img\s+src="(.*?)"\s+alt="(.*?)"\s*\/?>/.test(line)) {
-                openBlock("image");
-                output += line.replace(/<img\s+src="(.*?)"\s+alt="(.*?)"\s*\/?>/g, (_match, url, alt) => {
-                    return `<img src="${url}" ${alt ? ` alt="${alt}"` : ""} />`;
+            } else if (/^-\s+\[(x|X|\s*)\]\s+(.*?)$/.test(line)) { // Regex para la lista de tareas
+                openBlock("task");
+                output += line.replace(/^-\s+\[(x|X|\s*)\]\s+(.*?)$/g, (_match, checked, text) => {
+                    const isChecked = (checked.trim().toLowerCase() === "x");
+                    return `<li><input type="checkbox" disabled ${isChecked ? "checked" : ""}> ${text}</li>`;
                 });
-            } else {
+            } else if (/^>\s+(.*?)$/.test(line)) { // Regex para el blockquote
+                openBlock("quote");
+                output += `<p>${line.replace(/^>\s+/, "")}</p>`;
+            } else { // En cualquier otro caso, metemos salto de línea
                 closeBlock();
-                output += line;
+                if (line !== "") {
+                    output += `<p>${line}</p>`;
+                }
             }
         });
 
@@ -112,9 +138,9 @@ export default function MarkdownPanel({ div1 }: { div1: React.RefObject<HTMLDivE
     // Uso de Debounce para mejorar rendimiento y evitar renders innecesarios
     const handleChange = debounce((markdownValue: string) => {
         setMarkdownText(markdownValue);
-        const markdownParsedInLines = parseMarkdownLines(markdownValue);
-        const markdownParsedWords = parseMarkdownWords(markdownParsedInLines);
-        const markdownParsedParagraphs = parseMarkdownParagraphs(markdownParsedWords);
+        const markdownParsedInLines = parseMarkdownLines(markdownValue); // Parseamos líneas
+        const markdownParsedWords = parseMarkdownWords(markdownParsedInLines); // Parseamos palabras
+        const markdownParsedParagraphs = parseMarkdownParagraphs(markdownParsedWords); // Parseamos párrafos
         setHtmlText(markdownParsedParagraphs);
     }, 300);
 
