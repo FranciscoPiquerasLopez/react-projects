@@ -6,8 +6,8 @@ import Main from './components/Main';
 function App() {
   return (
     <>
-      <div className="absolute top-0 z-[-2] min-h-screen w-screen bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px]">
-        <div className='grid grid-cols-1 grid-rows-[35px_auto_50px] max-w-7xl mx-auto p-6 h-screen'>
+      <div className="background">
+        <div className='container'>
           <Header />
           <Main />
           <Footer />

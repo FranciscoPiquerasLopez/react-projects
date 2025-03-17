@@ -121,7 +121,7 @@ export default function MarkdownPanel({ div1 }: { div1: React.RefObject<HTMLDivE
             } else if (/^>\s+(.*?)$/.test(line)) { // Regex para el blockquote
                 openBlock("quote");
                 output += `<p>${line.replace(/^>\s+/, "")}</p>`;
-            } else { // En cualquier otro caso, metemos salto de línea
+            } else { // Metemos etiqueta de párrafo
                 closeBlock();
                 if (line !== "") {
                     output += `<p>${line}</p>`;
@@ -146,12 +146,12 @@ export default function MarkdownPanel({ div1 }: { div1: React.RefObject<HTMLDivE
 
     return (
         <>
-            <div ref={div1} className='flex w-full flex-col gap-2 bg-white rounded-2xl'>
-                <h2 className='text-center mt-3 font-bold text-lg'>Markdown</h2>
+            <div ref={div1} className='panel__markdown'>
+                <h2 className='panel__markdown__title'>Markdown</h2>
                 <textarea
                     name="markdown"
                     id="markdown"
-                    className='h-full w-full focus:outline-none resize-none p-4'
+                    className='panel__markdown__textarea'
                     onChange={(e) => { handleChange(e.target.value) }}>
                 </textarea>
             </div>

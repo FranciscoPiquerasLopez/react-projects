@@ -1,29 +1,160 @@
-@import "tailwindcss";
-@plugin "@tailwindcss/typography";
-
-blockquote p::before {
-    content: "";
+body {
+    margin: 0;
 }
 
-blockquote p::after {
-    content: "";
+.github-image {
+    width: 1.8rem;
+    height: 1.8rem;
+    color: #262626;
+    transition: color 0.2s ease-in-out;
+    color: #fff;
 }
 
-.prose code {
-    background-color: #f5f5f5;
-    padding: 2px 4px;
-    border-radius: 4px;
-    font-size: 1rem;
-    font-family: 'Courier New', monospace;
-    color: #333;
+.github-image:hover {
+    color: #cecece;
 }
 
-.prose code::before {
-    content: "";
+.background {
+    position: absolute;
+    top: 0;
+    z-index: -2;
+    min-height: 100vh;
+    width: 100vw;
+    background-color: #000000;
+    background-image: radial-gradient(circle, #ffffff33 1px, #00091d 1px);
+    background-size: 20px 20px;
 }
 
-.prose code::after {
-    content: "";
+.container {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    grid-template-rows: 35px 1fr 50px;
+    max-width: 1280px;
+    margin-inline: auto;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+header {
+    display: flex;
+    justify-content: flex-end;
+}
+
+header a {
+    height: 24px;
+}
+
+footer {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer span {
+    color: oklch(0.987 0.022 95.277);
+    font-size: 18px;
+    line-height: calc(1.75 / 1.125);
+    font-weight: 700;
+}
+
+.container main {
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+    justify-content: center;
+    align-items: center;
+    min-height: 0;
+    overflow-y: hidden;
+}
+
+.main__title {
+    font-size: 60px;
+    text-align: center;
+    font-weight: 500;
+    color: oklch(0.987 0.022 95.277);
+    font-weight: 700;
+}
+
+.title__subtitle {
+    display: block;
+    background: linear-gradient(to right, #fafafa, #64748b, #fafafa);
+    background-clip: text;
+    color: transparent;
+    line-height: 4rem;
+    font-weight: 700;
+}
+
+.main__panel {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    height: 60%;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.panel__markdown {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.5rem;
+    background-color: #334155;
+}
+
+.panel__markdown__title {
+    color: white;
+    text-align: center;
+    margin-top: 0.75rem;
+    font-weight: bold;
+    font-size: 1.125rem;
+}
+
+.panel__markdown__textarea {
+    color: white;
+    background-color: #334155;
+    outline: none;
+    resize: none;
+    padding: 1rem;
+    border: none;
+    flex: 1;
+    font-size: 20px;
+}
+
+.panel__slider {
+    width: 0.375rem;
+    min-width: 0.375rem;
+    cursor: col-resize;
+    background-color: #4b5563;
+}
+
+.panel__slider--hover:hover {
+    background-color: #d1d5db;
+}
+
+.panel__html {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 0.5rem;
+    background-color: #334155;
+    flex: 1;
+}
+
+.panel__html__title {
+    color: white;
+    text-align: center;
+    margin-top: 0.75rem;
+    font-weight: bold;
+    font-size: 1.125rem;
+}
+
+.panel__html__textarea {
+    padding: 1rem;
+    overflow: auto;
+    color: white;
+    flex: 1;
 }
 
 /* --- Editando el ScrollBar --- */
