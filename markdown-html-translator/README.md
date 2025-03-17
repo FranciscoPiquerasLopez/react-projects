@@ -1,4 +1,4 @@
-1. Tablas:
+1. Implementar tablas en Markdown:
 
 HTML:
 | Encabezado 1 | Encabezado 2 |
@@ -22,4 +22,6 @@ HTML:
   </tr>
 </table>
 
-2. Párrafos vacíos, controlarlos
+2. Organizar código para que quede más limpio
+
+3. Implementar test unitarios

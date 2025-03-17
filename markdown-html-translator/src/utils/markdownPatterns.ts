@@ -50,12 +50,25 @@ export const transformationWords = [
     // _ Cursiva con guion bajo
     { pattern: /_(.*?)_/g, replacement: "<i>$1</i>" },
 
-    // Detectar bloques de código multilínea y envolver en <pre><code>...</code></pre>
-    { pattern: /```([\s\S]+?)```/g, replacement: "<pre><code>$1</code></pre>" },
-
-    // ` Código en línea `
-    { pattern: /`([^`]+)`/g, replacement: "<code>$1</code>" },
-
     // ++ subrayado ++
     { pattern: /\+\+([\s\S]+?)\+\+/g, replacement: "<u>$1</u>" },
 ];
+
+export const parseCodeLinesAndBlocks = (markdownText: string) => {
+    // Primero, procesamos los bloques de código (delimitados por tres backticks)
+    let parsedText = markdownText.replace(/```([\s\S]+?)```/g, (_match, codeBlock) => {
+        return `<pre><code>${codeBlock.trim()}</code></pre>`;
+    });
+
+    // Luego, procesamos el código en línea (delimitado por un solo backtick)
+    parsedText = parsedText.replace(/`([^`]+)`/g, (_match, inlineCode) => {
+        return `<code>${inlineCode}</code>`;
+    });
+
+    return parsedText;
+};
+
+export const parseTables = (markdownText: string) => {
+    const markdownLines = markdownText.split("\n");
+    
+};

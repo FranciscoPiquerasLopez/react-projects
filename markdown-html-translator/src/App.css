@@ -2,6 +2,41 @@ body {
     margin: 0;
 }
 
+pre {
+    background-color: #1e1e1e;
+    color: #dcdcdc;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.5;
+    overflow-x: auto;
+    border: 1px solid #3c3c3c;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+p code,
+pre code p {
+    background-color: #282c34;
+    color: #e06c75;
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-family: "Fira Code", monospace;
+    font-size: 13px;
+}
+
+blockquote {
+    background-color: #f4f4f9;
+    border-left: 4px solid #007bff;
+    padding: 15px 20px;
+    font-style: italic;
+    color: #555;
+    margin: 20px 0;
+    border-radius: 8px;
+    line-height: 1.6;
+    font-size: 1.1em;
+    position: relative;
+}
+
 .github-image {
     width: 1.8rem;
     height: 1.8rem;

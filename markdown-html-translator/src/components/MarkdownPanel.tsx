@@ -1,6 +1,6 @@
 import debounce from "debounce";
 import { useGlobalStore } from "../hooks/states/useGlobalStore";
-import { transformationsLines, transformationWords } from "../utils/markdownPatterns";
+import { parseCodeLinesAndBlocks, transformationsLines, transformationWords } from "../utils/markdownPatterns";
 
 export default function MarkdownPanel({ div1 }: { div1: React.RefObject<HTMLDivElement | null> }) {
     const setMarkdownText = useGlobalStore((state) => state.setMarkdownText);
@@ -105,7 +105,7 @@ export default function MarkdownPanel({ div1 }: { div1: React.RefObject<HTMLDivE
             } else if (/^!\[.*?\]\((https?:\/\/[^\s)]+)(?:\s+"(.*?)")?\)/.test(line)) { // Regex para imágenes
                 openBlock("image");
                 output += line.replace(/^!\[.*?\]\((https?:\/\/[^\s)]+)(?:\s+"(.*?)")?\)/g, (_match, url, alt, title) => {
-                    return `<img src="${url}" alt="${alt}"${title ? ` title="${title}"` : ""} />`;
+                    return `<img src="${url}" alt="${alt} "${title ? ` title="${title}"` : ""} />`;
                 });
             } else if (/\[(.*?)\]\((https?:\/\/[^\s)]+)(?:\s+"(.*?)")?\)/.test(line)) { // Regex para enlaces
                 openBlock("link");
@@ -121,10 +121,14 @@ export default function MarkdownPanel({ div1 }: { div1: React.RefObject<HTMLDivE
             } else if (/^>\s+(.*?)$/.test(line)) { // Regex para el blockquote
                 openBlock("quote");
                 output += `<p>${line.replace(/^>\s+/, "")}</p>`;
-            } else { // Metemos etiqueta de párrafo
+            } else { // Párrafo en cualquier otro caso
                 closeBlock();
-                if (line !== "") {
+                if (!/<h([1-6])[^>]*>/.test(line) && !/^<hr>/.test(line) && !/```/.test(line) && line !== "") {
                     output += `<p>${line}</p>`;
+                } else if (line === "") {
+                    output += "</br>";
+                } else {
+                    output += line;
                 }
             }
         });
@@ -141,7 +145,8 @@ export default function MarkdownPanel({ div1 }: { div1: React.RefObject<HTMLDivE
         const markdownParsedInLines = parseMarkdownLines(markdownValue); // Parseamos líneas
         const markdownParsedWords = parseMarkdownWords(markdownParsedInLines); // Parseamos palabras
         const markdownParsedParagraphs = parseMarkdownParagraphs(markdownParsedWords); // Parseamos párrafos
-        setHtmlText(markdownParsedParagraphs);
+        const markdownParsedCodeBlocks = parseCodeLinesAndBlocks(markdownParsedParagraphs); // Parseamos bloques de código
+        setHtmlText(markdownParsedCodeBlocks);
     }, 300);
 
     return (
