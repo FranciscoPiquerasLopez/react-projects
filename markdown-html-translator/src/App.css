@@ -97,7 +97,7 @@ footer span {
 
 .panel__markdown {
     display: flex;
-    flex: 1;
+    width: 100%;
     flex-direction: column;
     gap: 0.5rem;
     background-color: #334155;
@@ -118,8 +118,8 @@ footer span {
     resize: none;
     padding: 1rem;
     border: none;
-    flex: 1;
     font-size: 20px;
+    flex: 1;
 }
 
 .panel__slider {
@@ -139,7 +139,6 @@ footer span {
     flex-direction: column;
     gap: 0.5rem;
     background-color: #334155;
-    flex: 1;
 }
 
 .panel__html__title {

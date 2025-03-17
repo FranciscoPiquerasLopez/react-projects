@@ -23,5 +23,3 @@ HTML:
 </table>
 
 2. Párrafos vacíos, controlarlos
-
-3. Revisar si se puede cambiar el estilo sin que influya Tailwind de por medio
