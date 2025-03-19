@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
 }
@@ -62,13 +66,12 @@ blockquote {
 
 .container {
     display: grid;
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-    grid-template-rows: 35px 1fr 50px;
-    max-width: 1280px;
-    margin-inline: auto;
-    min-height: 100vh;
-    padding: 20px;
-    box-sizing: border-box;
+    grid-template-columns: 1fr;
+    grid-template-rows: 35px auto 50px;
+    max-width: 80rem;
+    height: 100vh;
+    margin: 0 auto;
+    padding: 1.5rem;
 }
 
 header {
@@ -100,8 +103,8 @@ footer span {
     gap: 56px;
     justify-content: center;
     align-items: center;
-    min-height: 0;
-    overflow-y: hidden;
+    max-height: 100vh;
+    overflow: hidden;
 }
 
 .main__title {
@@ -125,9 +128,9 @@ footer span {
     display: flex;
     justify-content: space-around;
     width: 100%;
-    height: 60%;
     border-radius: 1rem;
     overflow: hidden;
+    height: 100%;
 }
 
 .panel__markdown {
@@ -154,7 +157,10 @@ footer span {
     padding: 1rem;
     border: none;
     font-size: 20px;
-    flex: 1;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: auto;
 }
 
 .panel__slider {
@@ -188,7 +194,9 @@ footer span {
     padding: 1rem;
     overflow: auto;
     color: white;
-    flex: 1;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
 }
 
 /* --- Editando el ScrollBar --- */
