@@ -69,6 +69,17 @@ export const parseCodeLinesAndBlocks = (markdownText: string) => {
 };
 
 export const parseTables = (markdownText: string) => {
-    const markdownLines = markdownText.split("\n");
-    
+    console.log(markdownText);
+    return markdownText.replace(/\|(.+?)\|\|[-]+\|[-]+\|\|(.*?)\|(?=<|$)/gm, (_match, headerContent: string, bodyContent: string) => {
+        // Procesar encabezados
+        const theadContent = headerContent.split("|").map(cell => `<th>${cell.trim()}</th>`).join("");
+
+        // Procesar filas de la tabla
+        const rowsSplitted = bodyContent.split("||").filter(row => row.trim() !== "");
+        const tbodyContent = rowsSplitted.map(row => {
+            return `<tr>${row.split("|").map(cell => `<td>${cell.trim()}</td>`).join("")}</tr>`;
+        }).join("");
+
+        return `<table><thead><tr>${theadContent}</tr></thead><tbody>${tbodyContent}</tbody></table>`;
+    });
 };

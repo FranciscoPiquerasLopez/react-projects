@@ -1,6 +1,6 @@
 import debounce from "debounce";
 import { useGlobalStore } from "../hooks/states/useGlobalStore";
-import { parseCodeLinesAndBlocks, transformationsLines, transformationWords } from "../utils/markdownPatterns";
+import { parseCodeLinesAndBlocks, parseTables, transformationsLines, transformationWords } from "../utils/markdownPatterns";
 
 export default function MarkdownPanel({ div1 }: { div1: React.RefObject<HTMLDivElement | null> }) {
     const setMarkdownText = useGlobalStore((state) => state.setMarkdownText);
@@ -123,7 +123,7 @@ export default function MarkdownPanel({ div1 }: { div1: React.RefObject<HTMLDivE
                 output += `<p>${line.replace(/^>\s+/, "")}</p>`;
             } else { // Párrafo en cualquier otro caso
                 closeBlock();
-                if (!/<h([1-6])[^>]*>/.test(line) && !/^<hr>/.test(line) && !/```/.test(line) && line !== "") {
+                if (!/<h([1-6])[^>]*>/.test(line) && !/^<hr>/.test(line) && !/```/.test(line) && !/^\|/.test(line) && line !== "") {
                     output += `<p>${line}</p>`;
                 } else if (line === "") {
                     output += "</br>";
@@ -146,7 +146,8 @@ export default function MarkdownPanel({ div1 }: { div1: React.RefObject<HTMLDivE
         const markdownParsedWords = parseMarkdownWords(markdownParsedInLines); // Parseamos palabras
         const markdownParsedParagraphs = parseMarkdownParagraphs(markdownParsedWords); // Parseamos párrafos
         const markdownParsedCodeBlocks = parseCodeLinesAndBlocks(markdownParsedParagraphs); // Parseamos bloques de código
-        setHtmlText(markdownParsedCodeBlocks);
+        const markdownParsedTables = parseTables(markdownParsedCodeBlocks);
+        setHtmlText(markdownParsedTables);
     }, 300);
 
     return (

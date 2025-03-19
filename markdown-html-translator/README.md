@@ -1,27 +1,7 @@
-1. Implementar tablas en Markdown:
+1. Organizar código para que quede más limpio
 
-HTML:
-| Encabezado 1 | Encabezado 2 |
-|--------------|--------------|
-| Fila 1 Col 1 | Fila 1 Col 2 |
-| Fila 2 Col 1 | Fila 2 Col 2 |
+2. Preview de HTML en código con pestañas
 
-HTML:
-<table>
-  <tr>
-    <th>Encabezado 1</th>
-    <th>Encabezado 2</th>
-  </tr>
-  <tr>
-    <td>Fila 1 Col 1</td>
-    <td>Fila 1 Col 2</td>
-  </tr>
-  <tr>
-    <td>Fila 2 Col 1</td>
-    <td>Fila 2 Col 2</td>
-  </tr>
-</table>
+3. Manual de instrucciones abajo para que la gente sepa de que va. Ponerlos más en contexto
 
-2. Organizar código para que quede más limpio
-
-3. Implementar test unitarios
+4. Implementar test unitarios
