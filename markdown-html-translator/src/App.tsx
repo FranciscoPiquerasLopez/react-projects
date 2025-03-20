@@ -7,7 +7,10 @@ function App() {
   return (
     <>
       <div className="background">
-        <div className='container'>
+        <div className="grid-overlay"></div>
+        <div className="radial-gradient"></div>
+
+        <div className="container">
           <Header />
           <Main />
           <Footer />

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useGlobalStore } from "../hooks/states/useGlobalStore";
+import { prettify } from "htmlfy";
 
 export default function HtmlPanel({ div2 }: { div2: React.RefObject<HTMLDivElement | null> }) {
     const htmlText = useGlobalStore((state) => state.htmlText);
@@ -20,13 +21,17 @@ export default function HtmlPanel({ div2 }: { div2: React.RefObject<HTMLDivEleme
                     previewHTML
                         ?
                         <div
-                            className="panel__html__textarea"
+                            className="panel__html__previewHTML"
                             dangerouslySetInnerHTML={{ __html: htmlText }}
                         />
                         :
-                        <div className="panel__html__textarea">
-                            {htmlText}
-                        </div>
+                        <textarea
+                            name="html"
+                            id="html"
+                            className="panel__html__textarea"
+                            disabled={true}
+                            value={prettify(htmlText)}>
+                        </textarea>
                 }
             </div>
         </>

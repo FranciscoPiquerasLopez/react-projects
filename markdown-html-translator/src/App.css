@@ -54,17 +54,39 @@ blockquote {
 }
 
 .background {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    background: black;
+    overflow: hidden;
+}
+
+.grid-overlay {
     position: absolute;
     top: 0;
-    z-index: -2;
-    min-height: 100vh;
-    width: 100vw;
-    background-color: #000000;
-    background-image: radial-gradient(circle, #ffffff33 1px, #00091d 1px);
-    background-size: 20px 20px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        linear-gradient(to right, #4f4f4f2e 1px, transparent 1px),
+        linear-gradient(to bottom, #8080800a 1px, transparent 1px);
+    background-size: 14px 24px;
+}
+
+.radial-gradient {
+    position: absolute;
+    top: -10%;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 1000px;
+    width: 1000px;
+    border-radius: 50%;
+    background: radial-gradient(circle 400px at 50% 300px, #fbfbfb36, #000);
 }
 
 .container {
+    position: relative;
+    z-index: 1;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 35px auto 50px;
@@ -199,13 +221,26 @@ footer span {
     cursor: pointer;
 }
 
-.panel__html__textarea {
+.panel__html__previewHTML {
     padding: 1rem;
     overflow: auto;
     color: white;
     width: 100%;
     height: 100%;
     box-sizing: border-box;
+}
+
+.panel__html__textarea {
+    background: #334155;
+    color: #fff;
+    font-size: 20px;
+    border: none;
+    padding: 1rem;
+    overflow: auto;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    cursor: text;
 }
 
 /* --- Editando el ScrollBar --- */
