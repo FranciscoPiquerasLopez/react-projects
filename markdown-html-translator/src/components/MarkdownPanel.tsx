@@ -153,7 +153,9 @@ export default function MarkdownPanel({ div1 }: { div1: React.RefObject<HTMLDivE
     return (
         <>
             <div ref={div1} className='panel__markdown'>
-                <h2 className='panel__markdown__title'>Markdown</h2>
+                <ul className="panel__html__navbar">
+                    <li><button className="panel__html__navbar_elements">Markdown</button></li>
+                </ul>
                 <textarea
                     name="markdown"
                     id="markdown"

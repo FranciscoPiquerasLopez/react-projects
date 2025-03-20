@@ -69,7 +69,6 @@ export const parseCodeLinesAndBlocks = (markdownText: string) => {
 };
 
 export const parseTables = (markdownText: string) => {
-    console.log(markdownText);
     return markdownText.replace(/\|(.+?)\|\|[-]+\|[-]+\|\|(.*?)\|(?=<|$)/gm, (_match, headerContent: string, bodyContent: string) => {
         // Procesar encabezados
         const theadContent = headerContent.split("|").map(cell => `<th>${cell.trim()}</th>`).join("");
