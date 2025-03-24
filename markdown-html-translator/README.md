@@ -1,7 +1,6 @@
-1. Preview de HTML en código con pestañas
+- Poner sidebar right fijo
+- Arreglar footer
+- Añadir ancles con iconos en las secciones de la guía rápida de usuario
 
-2. Organizar código para que quede más limpio
-
-3. Manual de instrucciones abajo para que la gente sepa de que va. Ponerlos más en contexto
-
-4. Implementar test unitarios
+- Organizar código para que quede más limpio
+- Implementar test unitarios
