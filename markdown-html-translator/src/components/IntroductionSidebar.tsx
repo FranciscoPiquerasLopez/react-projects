@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useGlobalStore } from "../hooks/states/useGlobalStore";
 
 const IntroductionSidebar = () => {
 
-    const [activeSection, setActiveSection] = useState<string>("");
+    const activeSection = useGlobalStore(state => state.activeSection);
+    const setActiveSection = useGlobalStore(state => state.setActiveSection);
 
     const handleClick = (sectionClicked: string) => {
         setActiveSection(sectionClicked);
@@ -10,7 +11,7 @@ const IntroductionSidebar = () => {
 
     return (
         <div className="introduction__siderightbar">
-            <div>
+            <div className="introduction__title">
                 <h2>En este artículo</h2>
             </div>
             <div className="introduction__navbar">

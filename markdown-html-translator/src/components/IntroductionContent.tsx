@@ -3,7 +3,7 @@ import IntroductionSection from "./IntroductionSection";
 const IntroductionContent = () => {
     return (
         <div className="introduction__content">
-            <IntroductionSection idSection="markdown" titleSection={"Qué es markdown"}>
+            <IntroductionSection idSection="markdown" hrefValue="#markdown" titleSection={"Qué es markdown"}>
                 <p>
                     Markdown es un lenguaje de marcado ligero que se usa para dar formato a texto de forma sencilla
                     y rápida sin necesidad de HTML. Sus casos de uso son:
@@ -24,7 +24,7 @@ const IntroductionContent = () => {
                     5. Publicación de libros y PDFs.
                 </p>
             </IntroductionSection>
-            <IntroductionSection idSection="encabezados" titleSection={"Encabezados"}>
+            <IntroductionSection idSection="encabezados" hrefValue="#encabezados" titleSection={"Encabezados"}>
                 <p>
                     Para crear un encabezado, agrega entre uno y seis símbolos <code>#</code> antes del encabezado del texto.
                     El número de <code>#</code> que utilices determinará el nivel jerárquico y el tamaño tipográfico del encabezado.
@@ -37,7 +37,7 @@ const IntroductionContent = () => {
                     </code>
                 </pre>
             </IntroductionSection>
-            <IntroductionSection idSection="estilosTexto" titleSection={"Estilos de texto"}>
+            <IntroductionSection idSection="estilosTexto" hrefValue="#estilosTexto" titleSection={"Estilos de texto"}>
                 <p>
                     Puedes indicar énfasis con texto en negrita, cursiva, tachado, o de subíndice o superíndice en los campos
                     de comentarios y archivos .md.
@@ -105,7 +105,7 @@ const IntroductionContent = () => {
                     </table>
                 </p>
             </IntroductionSection>
-            <IntroductionSection idSection="blockquote" titleSection={"Encabezados"}>
+            <IntroductionSection idSection="blockquote" hrefValue="#blockquote" titleSection={"Entrecomillado de texto"}>
                 <p>
                     Puede entrecomillar texto con <code><kbd>&gt;</kbd></code>.
                 </p>
@@ -116,7 +116,7 @@ const IntroductionContent = () => {
                     </code>
                 </pre>
             </IntroductionSection>
-            <IntroductionSection idSection="code" titleSection="Código de cita">
+            <IntroductionSection idSection="code" hrefValue="#code" titleSection="Código de cita">
                 <p>
                     Puedes procesar un código en línea o en bloque. Para el código en línea es usando las comillas invertidas
                     <code>`</code>.
@@ -135,7 +135,7 @@ const IntroductionContent = () => {
                     </code>
                 </pre>
             </IntroductionSection>
-            <IntroductionSection idSection="enlaces" titleSection="Enlaces">
+            <IntroductionSection idSection="enlaces" hrefValue="#enlaces" titleSection="Enlaces">
                 <p>
                     Para insertar enlace sin título:
                 </p>
@@ -149,13 +149,13 @@ const IntroductionContent = () => {
                     <code>[Google](https://www.google.com "Haz clic para ir a Google")</code>
                 </p>
             </IntroductionSection>
-            <IntroductionSection idSection="saltos" titleSection="Saltos de línea">
+            <IntroductionSection idSection="saltos" hrefValue="#saltos" titleSection="Saltos de línea">
                 <p>
                     Los saltos de línea se generarán automáticamente tras nosotros hacer un salto de línea en cualquier parte
                     del texto.
                 </p>
             </IntroductionSection>
-            <IntroductionSection idSection="imagenes" titleSection="Imágenes">
+            <IntroductionSection idSection="imagenes" hrefValue="#imagenes" titleSection="Imágenes">
                 <p>
                     Sintaxis básica para insertar imágeges:
                 </p>
@@ -173,7 +173,7 @@ const IntroductionContent = () => {
                     </code>
                 </p>
             </IntroductionSection>
-            <IntroductionSection idSection="listas" titleSection="Listas">
+            <IntroductionSection idSection="listas" hrefValue="#listas" titleSection="Listas">
                 <p>
                     Para listas desordenadas basta con colocar <code>-</code>,<code>*</code> o <code>+</code> antes de una o más líneas de texto:
                 </p>
@@ -195,7 +195,7 @@ const IntroductionContent = () => {
                     </code>
                 </pre>
             </IntroductionSection>
-            <IntroductionSection idSection="listasTareas" titleSection="Listas de tareas">
+            <IntroductionSection idSection="listasTareas" hrefValue="#listasTareas" titleSection="Listas de tareas">
                 <p>
                     Para crear una lista de tareas, debe añadir como prefijo un guion y espacio,
                     seguido de <code>[ ]</code> a los elementos de la lista. Para marcar una tarea como completada,
@@ -209,7 +209,7 @@ const IntroductionContent = () => {
                     </code>
                 </pre>
             </IntroductionSection>
-            <IntroductionSection idSection="tablas" titleSection="Tablas">
+            <IntroductionSection idSection="tablas" hrefValue="#tablas" titleSection="Tablas">
                 <p>
                     En Markdown, las tablas se crean de una manera bastante simple usando pipes <code>(|)</code>
                     para separar las columnas y guiones <code>(-)</code> para crear la fila de encabezado.

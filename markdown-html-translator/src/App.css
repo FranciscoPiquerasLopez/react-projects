@@ -1,4 +1,5 @@
 * {
+    scroll-behavior: smooth;
     box-sizing: border-box;
     font-family: "Nunito", sans-serif;
 }
@@ -63,46 +64,36 @@ td {
 }
 
 .github-image {
-    width: 1.8rem;
-    height: 1.8rem;
-    color: #262626;
+    height: 1.5rem;
+    width: 1.5rem;
+    color: #e5e5e5;
     transition: color 0.2s ease-in-out;
-    color: #fff;
 }
 
 .github-image:hover {
-    color: #cecece;
+    color: #a3a3a3;
 }
 
 .background {
     position: relative;
-    height: 100vh;
+    height: 100%;
     width: 100%;
-    background: black;
+    background-color: #020617;
     overflow: hidden;
 }
 
-.grid-overlay {
+.overlay {
     position: absolute;
     top: 0;
+    bottom: 0;
     left: 0;
     right: 0;
-    bottom: 0;
-    background:
-        linear-gradient(to right, #4f4f4f2e 1px, transparent 1px),
-        linear-gradient(to bottom, #8080800a 1px, transparent 1px);
+    background-image:
+        linear-gradient(to right, rgba(79, 79, 79, 0.18) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(79, 79, 79, 0.18) 1px, transparent 1px);
     background-size: 14px 24px;
-}
-
-.radial-gradient {
-    position: absolute;
-    top: -10%;
-    left: 50%;
-    transform: translateX(-50%);
-    height: 1000px;
-    width: 1000px;
-    border-radius: 50%;
-    background: radial-gradient(circle 400px at 50% 300px, #fbfbfb36, #000);
+    mask-image: radial-gradient(ellipse 60% 50% at 50% 0%, #000 70%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 0%, #000 70%, transparent 100%);
 }
 
 .container {
@@ -178,14 +169,17 @@ footer span {
     font-weight: 500;
     color: oklch(0.987 0.022 95.277);
     font-weight: 700;
+    animation: textAppear 3s ease-in-out forwards;
 }
 
 .title__subtitle {
     display: block;
-    background: linear-gradient(to right, #fafafa, #64748b, #fafafa);
+    background-image: linear-gradient(to right, #818181, #ffffff, #818181);
+    background-size: 200% auto;
     background-clip: text;
     color: transparent;
-    line-height: 4rem;
+    line-height: 1.25;
+    animation: textAppear 3s ease-in-out forwards;
     font-weight: 700;
 }
 
@@ -258,9 +252,10 @@ footer span {
     background-color: #334155;
     font-weight: 600;
     font-size: 1rem;
-    border: #fff 1px solid;
+    border: #fff 0px solid;
+    text-decoration: underline;
+    text-underline-offset: 4px;
     padding: 4px 15px;
-    border-radius: 3px;
     cursor: pointer;
 }
 
@@ -316,8 +311,15 @@ footer span {
 }
 
 .introduction__section__title a {
+    display: flex;
+    align-items: center;
     color: inherit;
     text-decoration: none;
+}
+
+.introduction__section__title a span {
+    margin-left: 5px;
+    font-size: 15px;
 }
 
 .introduction__section__content {
@@ -332,7 +334,14 @@ footer span {
     justify-content: start;
 }
 
+.introduction__title {
+    position: sticky;
+    top: 0;
+}
+
 .introduction__navbar {
+    position: sticky;
+    top: 68px;
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -355,11 +364,28 @@ footer span {
     padding-left: 7px;
 }
 
-.footer__introduction a {
+.footer__introduction {
     display: flex;
     justify-content: end;
+    height: 56px;
+}
+
+.footer__introduction a {
+    display: flex;
     align-items: center;
-    text-decoration: none;
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.footer__introduction a svg {
+    width: 32px;
+    height: 56px;
+}
+
+.footer__introduction a:hover {
+    transform: scale(1.1);
 }
 
 /* --- Editando el ScrollBar --- */
@@ -382,4 +408,14 @@ footer span {
 
 ::-webkit-scrollbar-thumb:hover {
     background: #7c7c7c;
+}
+
+/* --- Keyframes --- */
+@keyframes textAppear {
+    0% {
+        opacity: 0; /* Al principio, el texto es invisible */
+    }
+    100% {
+        opacity: 100; /* Irá apareciendo el texto hasta que al final sea completamente visible */
+    }
 }

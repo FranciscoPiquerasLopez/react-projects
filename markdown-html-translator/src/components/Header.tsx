@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import GithubImage from "./svg/GithuhImage";
 
 export default function Header() {
@@ -5,8 +6,8 @@ export default function Header() {
         <>
             <header>
                 <ul>
-                    <li><a href="/introduction">Inicio</a></li>
-                    <li><a href="/">Markdown</a></li>
+                    <li><Link to="/introduction">Inicio</Link></li>
+                    <li><Link to="/">Markdown</Link></li>
                 </ul>
                 <a href="https://github.com/FranciscoPiquerasLopez" target='_blank'>
                     <GithubImage />
