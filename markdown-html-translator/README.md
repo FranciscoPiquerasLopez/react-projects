@@ -1,3 +1,2 @@
-- Estilos CSS mejores para Markdown APP
 - Organizar código para que quede más limpio
 - Implementar test unitarios

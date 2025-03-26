@@ -185,7 +185,7 @@ const IntroductionContent = () => {
                     </code>
                 </pre>
                 <p>
-                    Para las listas desordenadas, antecede cada línea con un número:
+                    Para las listas ordenadas, antecede cada línea con un número:
                 </p>
                 <pre>
                     <code>
