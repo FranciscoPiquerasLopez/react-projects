@@ -1,2 +1,1 @@
-- Organizar código para que quede más limpio
 - Implementar test unitarios

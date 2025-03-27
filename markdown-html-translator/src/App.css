@@ -410,13 +410,3 @@ footer span {
 ::-webkit-scrollbar-thumb:hover {
     background: #7c7c7c;
 }
-
-/* --- Keyframes --- */
-@keyframes textAppear {
-    0% {
-        opacity: 0; /* Al principio, el texto es invisible */
-    }
-    100% {
-        opacity: 100; /* Irá apareciendo el texto hasta que al final sea completamente visible */
-    }
-}
