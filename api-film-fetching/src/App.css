@@ -1,0 +1,10 @@
+@import "tailwindcss";
+@import "tailwindcss-animated";
+
+html {
+  height: 100vh;
+  background: #2B2B31;
+  color: #fff;
+  max-width: 100%;
+  padding: 0px;
+}
