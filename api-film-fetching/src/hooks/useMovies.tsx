@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getDataOfMovieById, getNowPlayingMovies, getPopularMovies, getUpcomingMovies } from "../api/movies";
+import { getDataOfMovieById, getNowPlayingMovies, getPopularMovies, getUpcomingMovies, listOfGenres } from "../api/movies";
 
 // Para consumir el endpoint de obtener las películas favoritas
 export const usePopularMovies = () => {
@@ -22,6 +22,14 @@ export const useUpcomingMovies = () => {
     return useQuery({
         queryKey: ['upcomingMovies'],
         queryFn: getUpcomingMovies
+    });
+};
+
+// Consumir el endpoint de los géneros
+export const useMovieGenres = () => {
+    return useQuery({
+        queryKey: ['movieGenres'],
+        queryFn: listOfGenres
     });
 };
 

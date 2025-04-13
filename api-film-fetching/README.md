@@ -1,6 +1,6 @@
 # Objetivos del proyecto
 
-1. Listado de películas: con carátula, título, sinopsis breve y puntuación.
+1. Listado de películas: con carátula, título, sinopsis breve y puntuación. ✅
 
 2. Filtros: por género, puntuación, fecha de estreno, etc.
 

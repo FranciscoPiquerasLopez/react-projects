@@ -1,6 +1,5 @@
 import useMoviesStore from "../store/useMoviesStore";
 
-
 export default function SideLeftBar() {
 
     const section = useMoviesStore((state) => state.section);
