@@ -38,3 +38,9 @@ export const getDataOfMovieById = async (movieId: number): Promise<MovieInterfac
     const res = await tmdb.get(`/movie/${movieId}`);
     return res.data;
 };
+
+// Buscar películas por nombres
+export const getMoviesByName = async (movieName: string): Promise<MovieInterface[]> => {
+    const res = await tmdb.get(`/search/movie?query=${movieName}`);
+    return res.data;
+};

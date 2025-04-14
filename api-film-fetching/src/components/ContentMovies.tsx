@@ -36,7 +36,7 @@ export default function ContentMovies({ title, endpointHook }: ContentMoviesProp
                 {
                     data?.map((movie: MovieInterface) => {
                         return (
-                            <div key={movie.id} className="relative group cursor-pointer">
+                            <div key={movie.id} className="relative group">
                                 {/** Imágen del poster de la película */}
                                 <img
                                     src={`${API_IMAGE}${movie.poster_path}`}
@@ -62,7 +62,7 @@ export default function ContentMovies({ title, endpointHook }: ContentMoviesProp
                                         }
                                     </div>
                                     <button
-                                        className="cursor-pointer px-4 py-1 bg-white text-black rounded hover:bg-gray-200"
+                                        className="cursor-pointer px-4 py-1 bg-white text-black rounded animation duration-500 ease-in-out hover:bg-gray-300"
                                         onClick={() => handleClick(movie.id)}>
                                         Ver más
                                     </button>

@@ -4,7 +4,7 @@
 
 2. Filtros: por género, puntuación, fecha de estreno, etc.
 
-3. Detalles de película: al hacer clic, mostrar información completa de la misma.
+3. Detalles de película: al hacer clic, mostrar información completa de la misma. ✅
 
 4. Sistema de favoritos: guardados en local con Zustand.
 
