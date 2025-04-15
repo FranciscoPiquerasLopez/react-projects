@@ -42,5 +42,5 @@ export const getDataOfMovieById = async (movieId: number): Promise<MovieInterfac
 // Buscar películas por nombres
 export const getMoviesByName = async (movieName: string): Promise<MovieInterface[]> => {
     const res = await tmdb.get(`/search/movie?query=${movieName}`);
-    return res.data;
+    return res.data.results;
 };

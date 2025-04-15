@@ -1,23 +1,26 @@
+import { motion } from "framer-motion";
 import { API_IMAGE } from "../utils/constants";
-import { UseQueryResult } from "@tanstack/react-query";
 import { useMovieGenres } from "../hooks/useMovies";
 import useMoviesStore from "../store/useMoviesStore";
 import { MovieInterface } from "../interfaces/MovieInterface";
+import useMoviesToShow from "../hooks/useMoviesToShow";
+import getTitleBySection from "../utils/getTitleBySection";
+import FilterBar from "./FilterBar";
 
-interface ContentMoviesProps {
-    title: string;
-    endpointHook: () => UseQueryResult<MovieInterface[], Error>;
-};
-
-export default function ContentMovies({ title, endpointHook }: ContentMoviesProps) {
-
-    // Custom hooks
-    const { data, error, isLoading } = endpointHook();
-    const { data: listOfGenres, error: errorGenres } = useMovieGenres();
+export default function ContentMovies() {
 
     // Zustand
     const setVisibleMovieInformation = useMoviesStore((state) => state.setVisibleMovieInformation);
     const setSelectedMovieId = useMoviesStore((state) => state.setSelectedMovieId);
+    const section = useMoviesStore((state) => state.section);
+    const movieName = useMoviesStore((state) => state.movieName);
+
+    // Custom hooks
+    const { data, error, isLoading } = useMoviesToShow(section, movieName);
+    const { data: listOfGenres, error: errorGenres } = useMovieGenres();
+
+    // Obtener el título
+    const title = getTitleBySection(section, movieName);
 
     if (isLoading) return <p>Cargando...</p>;
     if (error) return <p>Error al obtener las películas: {error.message}</p>;
@@ -30,13 +33,20 @@ export default function ContentMovies({ title, endpointHook }: ContentMoviesProp
     };
 
     return (
-        <main className="w-full animate-fade-up">
+        <motion.main
+            key={section + movieName}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="w-full z-0"
+        >
             <h1 className='text-4xl text-start mb-10'>{title}</h1>
+            <FilterBar />
             <div className='pr-8 grid gap-x-3 gap-y-5 grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))]'>
                 {
                     data?.map((movie: MovieInterface) => {
                         return (
-                            <div key={movie.id} className="relative group">
+                            <div key={movie.id} className="relative group max-w-[250px]">
                                 {/** Imágen del poster de la película */}
                                 <img
                                     src={`${API_IMAGE}${movie.poster_path}`}
@@ -72,6 +82,6 @@ export default function ContentMovies({ title, endpointHook }: ContentMoviesProp
                     })
                 }
             </div>
-        </main>
+        </motion.main>
     );
 };

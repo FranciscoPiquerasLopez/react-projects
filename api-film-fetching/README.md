@@ -2,15 +2,15 @@
 
 1. Listado de películas: con carátula, título, sinopsis breve y puntuación. ✅
 
-2. Filtros: por género, puntuación, fecha de estreno, etc.
+2. Filtros: Por género, año de estreno, por puntuación mínima y por duración
 
 3. Detalles de película: al hacer clic, mostrar información completa de la misma. ✅
 
 4. Sistema de favoritos: guardados en local con Zustand.
 
-5. Próximos estrenos: si la API lo permite.
+5. Próximos estrenos: si la API lo permite. ✅
 
-6. Búsqueda inteligente: con debounce, gestionado por React Query.
+6. Búsqueda inteligente: con debounce, gestionado por React Query. ✅
 
 7. Skeleton loaders / loading states: para UX top.
 

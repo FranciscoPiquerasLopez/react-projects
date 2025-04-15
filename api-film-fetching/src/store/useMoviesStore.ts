@@ -4,18 +4,26 @@ type Store = {
     section: string
     visibleMovieInformation: boolean
     selectedMovieId: number
+    movieName: string
+    ratingMoviesFilter: number
     setSection: (sectionArgument: string) => void
     setVisibleMovieInformation: () => void
     setSelectedMovieId: (movieId: number) => void
+    setMovieName: (movieValueSearchInput: string) => void
+    setRatingMoviesFilter: (ratingValue: number) => void
 };
 
 const useMoviesStore = create<Store>()((set) => ({
     section: "peliculasPopulares",
     visibleMovieInformation: false,
     selectedMovieId: 0,
+    movieName: "",
+    ratingMoviesFilter: 0,
     setSection: (sectionArgument: string) => set({ section: sectionArgument }),
     setVisibleMovieInformation: () => set((state) => ({ visibleMovieInformation: !state.visibleMovieInformation })),
     setSelectedMovieId: (movieId: number) => set({ selectedMovieId: movieId }),
-}))
+    setMovieName: (movieValueSearchInput: string) => set({ movieName: movieValueSearchInput }),
+    setRatingMoviesFilter: (ratingValue: number) => set({ ratingMoviesFilter: ratingValue }),
+}));
 
 export default useMoviesStore;
