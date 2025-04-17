@@ -13,3 +13,5 @@
 6. Sistema de favoritos: guardados en localStorage o "storage personalizado" con Zustand.
 
 7. Skeleton loaders / loading states: para UX top.
+
+8. Responsive para todos los dispositivos

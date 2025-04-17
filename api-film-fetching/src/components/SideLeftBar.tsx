@@ -23,6 +23,11 @@ export default function SideLeftBar() {
                     className={"cursor-pointer py-2 text-center " + (section === "proximosEstrenos" ? "bg-[#2B2B31] text-red-400 font-bold" : "")}>
                     Próximos estrenos
                 </li>
+                <li
+                    onClick={() => setSection("peliculasFavoritas")}
+                    className={"text-center py-2 cursor-pointer border-t-1 border-[#969696]" + (section === "peliculasFavoritas" ? "bg-[#2B2B31] text-red-400 font-bold" : "")}>
+                    Películas favoritas
+                </li>
             </ul>
         </div>
     );
