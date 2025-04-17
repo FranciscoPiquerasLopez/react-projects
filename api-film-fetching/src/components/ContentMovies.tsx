@@ -6,6 +6,7 @@ import { MovieInterface } from "../interfaces/MovieInterface";
 import useMoviesToShow from "../hooks/useMoviesToShow";
 import getTitleBySection from "../utils/getTitleBySection";
 import FilterBar from "./FilterBar";
+import useMovieFilters from "../hooks/useMovieFilters";
 
 export default function ContentMovies() {
 
@@ -18,6 +19,9 @@ export default function ContentMovies() {
     // Custom hooks
     const { data, error, isLoading } = useMoviesToShow(section, movieName);
     const { data: listOfGenres, error: errorGenres } = useMovieGenres();
+
+    // Filtros aplicados a las películas - custom hook
+    const { filteredMovies } = useMovieFilters(data);
 
     // Obtener el título
     const title = getTitleBySection(section, movieName);
@@ -41,10 +45,10 @@ export default function ContentMovies() {
             className="w-full z-0"
         >
             <h1 className='text-4xl text-start mb-10'>{title}</h1>
-            <FilterBar />
+            <FilterBar genres={listOfGenres} />
             <div className='pr-8 grid gap-x-3 gap-y-5 grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))]'>
                 {
-                    data?.map((movie: MovieInterface) => {
+                    filteredMovies?.map((movie: MovieInterface) => {
                         return (
                             <div key={movie.id} className="relative group max-w-[250px]">
                                 {/** Imágen del poster de la película */}
