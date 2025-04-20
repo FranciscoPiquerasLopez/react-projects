@@ -6,7 +6,7 @@ export default function SideLeftBar() {
     const setSection = useMoviesStore((state) => state.setSection);
 
     return (
-        <div className="bg-[#1d1d20] py-5">
+        <div className="bg-[#1d1d20] py-5 hidden md:block w-[250px]">
             <ul>
                 <li
                     onClick={() => setSection("peliculasPopulares")}
