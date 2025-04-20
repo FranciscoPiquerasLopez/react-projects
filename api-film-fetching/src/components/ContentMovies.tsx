@@ -7,6 +7,9 @@ import useMoviesToShow from "../hooks/useMoviesToShow";
 import getTitleBySection from "../utils/getTitleBySection";
 import FilterBar from "./FilterBar";
 import useMovieFilters from "../hooks/useMovieFilters";
+import useFavoritesStore from "../store/useFavoritesStore";
+import MovieSkeletonLoader from "./MovieSkeletonLoader";
+import Star from "../icons/Star";
 
 export default function ContentMovies() {
 
@@ -15,6 +18,9 @@ export default function ContentMovies() {
     const setSelectedMovieId = useMoviesStore((state) => state.setSelectedMovieId);
     const section = useMoviesStore((state) => state.section);
     const movieName = useMoviesStore((state) => state.movieName);
+
+    // Zustand favorites store
+    const favorites = useFavoritesStore((state) => state.favorites);
 
     // Custom hooks
     const { data, error, isLoading } = useMoviesToShow(section, movieName);
@@ -26,14 +32,37 @@ export default function ContentMovies() {
     // Obtener el título
     const title = getTitleBySection(section, movieName);
 
-    if (isLoading) return <p>Cargando...</p>;
+    if (isLoading) return (
+        <div className="pr-8 grid gap-x-3 gap-y-5 grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))]">
+            {
+                Array.from({ length: 8 }).map((_, i) => (
+                    <MovieSkeletonLoader key={i} />
+                ))
+            }
+        </div>
+    );
     if (error) return <p>Error al obtener las películas: {error.message}</p>;
     if (errorGenres) return <p>Error al obtener los géneros: {errorGenres.message}</p>;
 
-    // Handle click
-    const handleClick = (idMovie: number) => {
+    // Handle click en el botón de "ver más" en una película
+    const handleClickMovie = (idMovie: number) => {
         setVisibleMovieInformation();
         setSelectedMovieId(idMovie);
+    };
+
+    // Handle click para añadir película a favoritos con el store de Zustand
+    const handleClickAddMovieToFavorites = (movieToAddIntoFavoritesStore: MovieInterface) => {
+
+        const { favorites, addFavorite, removeFavorite } = useFavoritesStore.getState();
+
+        // Comprobamos si esa película ya está guardada como favoritos para así agregarla o eliminarla del store
+        const isAlreadyFavorites = favorites.some((fav) => fav.id === movieToAddIntoFavoritesStore.id);
+
+        if (isAlreadyFavorites) {
+            removeFavorite(movieToAddIntoFavoritesStore.id);
+        } else {
+            addFavorite(movieToAddIntoFavoritesStore);
+        }
     };
 
     return (
@@ -77,10 +106,27 @@ export default function ContentMovies() {
                                     </div>
                                     <button
                                         className="cursor-pointer px-4 py-1 bg-white text-black rounded animation duration-500 ease-in-out hover:bg-gray-300"
-                                        onClick={() => handleClick(movie.id)}>
+                                        onClick={() => handleClickMovie(movie.id)}>
                                         Ver más
                                     </button>
                                 </div>
+
+                                {/** Guardar película en favoritos */}
+                                <button onClick={() => handleClickAddMovieToFavorites(movie)}>
+                                    <motion.div
+                                        initial={false}
+                                        animate={{
+                                            scale: favorites.some((fav) => fav.id === movie.id) ? 1.2 : 1,
+                                            rotate: favorites.some((fav) => fav.id === movie.id) ? 20 : 0,
+                                            color: favorites.some((fav) => fav.id === movie.id) ? "#fbbf24" : "#ffffff",
+                                            fill: favorites.some((fav) => fav.id === movie.id) ? "#fbbf24" : "none",
+                                        }}
+                                        transition={{ type: "spring", stiffness: 300 }}
+                                        className="absolute top-2 right-2 cursor-pointer"
+                                    >
+                                        <Star />
+                                    </motion.div>
+                                </button>
                             </div>
                         );
                     })

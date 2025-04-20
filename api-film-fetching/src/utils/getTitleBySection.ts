@@ -6,6 +6,7 @@ export default function getTitleBySection(section: string, movieName: string): s
             case "peliculasPopulares": return "Películas populares";
             case "peliculasCartelera": return "Películas en cartelera";
             case "proximosEstrenos": return "Próximos estrenos";
+            case "peliculasFavoritas": return "Películas favoritas";
             default: return "Películas";
         }
     }

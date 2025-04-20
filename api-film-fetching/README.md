@@ -10,8 +10,8 @@
 
 5. Búsqueda inteligente: con debounce, gestionado por React Query. ✅
 
-6. Sistema de favoritos: guardados en localStorage o "storage personalizado" con Zustand.
+6. Sistema de favoritos: guardados en localStorage o "storage personalizado" con Zustand. ✅
 
-7. Skeleton loaders / loading states: para UX top.
+7. Skeleton loaders / loading states: para UX top. ✅
 
-8. Responsive para todos los dispositivos
+8. Responsive para todos los dispositivos 
