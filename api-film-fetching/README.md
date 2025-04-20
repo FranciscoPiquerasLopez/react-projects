@@ -14,4 +14,6 @@
 
 7. Skeleton loaders / loading states: para UX top. ✅
 
-8. Responsive para todos los dispositivos 
+8. Responsive para todos los dispositivos ✅
+
+9. Tests

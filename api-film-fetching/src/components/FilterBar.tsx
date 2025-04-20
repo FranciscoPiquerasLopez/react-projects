@@ -19,7 +19,7 @@ export default function FilterBar({ genres }: { genres: MovieGenresInterface[] |
     };
 
     return (
-        <div className="flex flex-col gap-y-3 items-start min-[846px]:flex-row py-2 pr-8 mb-5 rounded-lg min-[846px]:gap-x-15">
+        <div className="flex flex-col gap-y-3 items-start min-[846px]:flex-row min-[846px]:items-center py-2 pr-8 mb-5 rounded-lg min-[846px]:gap-x-15">
             {/** Slider para filtrar por puntuación */}
             <div className='flex justify-center gap-3'>
                 <div className="flex items-center gap-3">

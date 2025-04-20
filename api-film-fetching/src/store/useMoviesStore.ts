@@ -1,37 +1,63 @@
 import { create } from "zustand";
+import { devtools, persist } from "zustand/middleware";
 
-type Store = {
-    section: string
-    visibleMovieInformation: boolean
-    selectedMovieId: number
-    movieName: string
-    ratingMoviesFilter: number
-    selectedGenreFilter: number
-    hamburgerMenuIsChecked: boolean
-    setSection: (sectionArgument: string) => void
-    setVisibleMovieInformation: () => void
-    setSelectedMovieId: (movieId: number) => void
-    setMovieName: (movieValueSearchInput: string) => void
-    setRatingMoviesFilter: (ratingValue: number) => void
-    setSelectedGenreFilter: (genreValue: number) => void
-    setHamburgerMenu: () => void;
+// 🎬 UI Slice
+interface UiState {
+    hamburgerMenuIsChecked: boolean;
+    visibleMovieInformation: boolean;
+    toggleHamburgerMenu: () => void;
+    toggleMovieInformationVisibility: () => void;
 };
 
-const useMoviesStore = create<Store>()((set) => ({
-    section: "peliculasPopulares",
-    visibleMovieInformation: false,
-    selectedMovieId: 0,
-    movieName: "",
-    ratingMoviesFilter: 0,
-    selectedGenreFilter: 0,
-    hamburgerMenuIsChecked: false,
-    setSection: (sectionArgument: string) => set({ section: sectionArgument }),
-    setVisibleMovieInformation: () => set((state) => ({ visibleMovieInformation: !state.visibleMovieInformation })),
-    setSelectedMovieId: (movieId: number) => set({ selectedMovieId: movieId }),
-    setMovieName: (movieValueSearchInput: string) => set({ movieName: movieValueSearchInput }),
-    setRatingMoviesFilter: (ratingValue: number) => set({ ratingMoviesFilter: ratingValue }),
-    setSelectedGenreFilter: (genreValue: number) => set({ selectedGenreFilter: genreValue }),
-    setHamburgerMenu: () => set((state) => ({ hamburgerMenuIsChecked: !state.hamburgerMenuIsChecked })),
-}));
+// 🎥 Movie Slice
+interface MovieState {
+    section: string;
+    selectedMovieId: number;
+    movieName: string;
+    ratingMoviesFilter: number;
+    selectedGenreFilter: number;
+    setSection: (section: string) => void;
+    setSelectedMovieId: (id: number) => void;
+    setMovieName: (name: string) => void;
+    setRatingMoviesFilter: (rating: number) => void;
+    setSelectedGenreFilter: (genre: number) => void;
+};
+
+// 📦 Global Store
+type Store = UiState & MovieState;
+
+// ✅ Create Store
+const useMoviesStore = create<Store>()(
+    devtools(
+        persist(
+            (set) => ({
+                // UI state
+                hamburgerMenuIsChecked: false,
+                visibleMovieInformation: false,
+                toggleHamburgerMenu: () =>
+                    set((state) => ({
+                        hamburgerMenuIsChecked: !state.hamburgerMenuIsChecked,
+                    })),
+                toggleMovieInformationVisibility: () =>
+                    set((state) => ({
+                        visibleMovieInformation: !state.visibleMovieInformation,
+                    })),
+
+                // Movie state
+                section: "peliculasPopulares",
+                selectedMovieId: 0,
+                movieName: "",
+                ratingMoviesFilter: 0,
+                selectedGenreFilter: 0,
+                setSection: (section) => set({ section }),
+                setSelectedMovieId: (id) => set({ selectedMovieId: id }),
+                setMovieName: (name) => set({ movieName: name }),
+                setRatingMoviesFilter: (rating) => set({ ratingMoviesFilter: rating }),
+                setSelectedGenreFilter: (genre) => set({ selectedGenreFilter: genre }),
+            }),
+            { name: "movies-storage" }
+        )
+    )
+);
 
 export default useMoviesStore;
