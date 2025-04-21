@@ -14,7 +14,7 @@ import Star from "../icons/Star";
 export default function ContentMovies() {
 
     // Zustand
-    const setVisibleMovieInformation = useMoviesStore((state) => state.setVisibleMovieInformation);
+    const setVisibleMovieInformation = useMoviesStore((state) => state.toggleMovieInformationVisibility);
     const setSelectedMovieId = useMoviesStore((state) => state.setSelectedMovieId);
     const section = useMoviesStore((state) => state.section);
     const movieName = useMoviesStore((state) => state.movieName);

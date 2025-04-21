@@ -9,7 +9,7 @@ export default function SideRightBarMovieInformation() {
     // Zustand
     const visibleMovieInformation = useMoviesStore((state) => state.visibleMovieInformation);
     const selectedMovieId = useMoviesStore((state) => state.selectedMovieId);
-    const setVisibleMovieInformation = useMoviesStore((state) => state.setVisibleMovieInformation);
+    const setVisibleMovieInformation = useMoviesStore((state) => state.toggleMovieInformationVisibility);
 
     // Datos de la película seleccionada por el usuario
     const { data, error, isLoading } = useDataOfMovie(selectedMovieId);

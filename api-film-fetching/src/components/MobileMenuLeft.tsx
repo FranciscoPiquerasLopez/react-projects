@@ -5,7 +5,7 @@ export default function MobileMenuLeft() {
 
     // Zustand hamburger menu
     const hamburgerMenuIsChecked = useMoviesStore((state) => state.hamburgerMenuIsChecked);
-    const setHamburgerMenu = useMoviesStore((state) => state.setHamburgerMenu);
+    const setHamburgerMenu = useMoviesStore((state) => state.toggleHamburgerMenu);
     const setSection = useMoviesStore((state) => state.setSection);
     const section = useMoviesStore((state) => state.section);
 
