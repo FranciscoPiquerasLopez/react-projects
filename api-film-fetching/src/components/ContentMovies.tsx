@@ -12,7 +12,6 @@ import MovieSkeletonLoader from "./MovieSkeletonLoader";
 import Star from "../icons/Star";
 
 export default function ContentMovies() {
-
     // Zustand
     const setVisibleMovieInformation = useMoviesStore((state) => state.toggleMovieInformationVisibility);
     const setSelectedMovieId = useMoviesStore((state) => state.setSelectedMovieId);
@@ -36,7 +35,7 @@ export default function ContentMovies() {
         <div className="pr-8 grid gap-x-3 gap-y-5 grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))]">
             {
                 Array.from({ length: 8 }).map((_, i) => (
-                    <MovieSkeletonLoader key={i} />
+                    <MovieSkeletonLoader key={i} data-testid={`movie-skeleton-${i}`} />
                 ))
             }
         </div>
@@ -53,6 +52,7 @@ export default function ContentMovies() {
     // Handle click para añadir película a favoritos con el store de Zustand
     const handleClickAddMovieToFavorites = (movieToAddIntoFavoritesStore: MovieInterface) => {
 
+        // Zustand favorites store
         const { favorites, addFavorite, removeFavorite } = useFavoritesStore.getState();
 
         // Comprobamos si esa película ya está guardada como favoritos para así agregarla o eliminarla del store
@@ -67,6 +67,8 @@ export default function ContentMovies() {
 
     return (
         <motion.main
+            role="main"
+            aria-label={title}
             key={section + movieName}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -75,11 +77,11 @@ export default function ContentMovies() {
         >
             <h1 className='text-4xl text-start mb-10'>{title}</h1>
             <FilterBar genres={listOfGenres} />
-            <div className='pr-8 grid gap-x-3 gap-y-5 grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))]'>
+            <div role="list" className='pr-8 grid gap-x-3 gap-y-5 grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))]'>
                 {
                     filteredMovies?.map((movie: MovieInterface) => {
                         return (
-                            <div key={movie.id} className="relative group max-w-[250px]">
+                            <div key={movie.id} role="listitem" className="relative group max-w-[250px]">
                                 {/** Imágen del poster de la película */}
                                 <img
                                     src={`${API_IMAGE}${movie.poster_path}`}
@@ -87,12 +89,15 @@ export default function ContentMovies() {
                                     className="rounded-lg" />
 
                                 {/** Valoración de la película */}
-                                <div className="z-10 absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-3 bg-yellow-500 rounded-2xl">
+                                <div
+                                    aria-label={`Puntuación de la película ${movie.title}: ${movie.vote_average.toFixed(1)}`}
+                                    className="z-10 absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-3 bg-yellow-500 rounded-2xl"
+                                >
                                     <span>{movie.vote_average.toFixed(1)}</span>
                                 </div>
 
                                 {/** Overlay con la información de la película que aparece al hacer hover en la imágen */}
-                                <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col gap-5 justify-center items-center p-4 text-white rounded-lg">
+                                <div className="h-[375px] absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col gap-5 justify-center items-center p-4 text-white rounded-lg">
                                     <h3 className="text-lg font-bold">{movie.title}</h3>
                                     <div>
                                         {
@@ -105,6 +110,7 @@ export default function ContentMovies() {
                                         }
                                     </div>
                                     <button
+                                        aria-label={`Ver más sobre ${movie.title}`}
                                         className="cursor-pointer px-4 py-1 bg-white text-black rounded animation duration-500 ease-in-out hover:bg-gray-300"
                                         onClick={() => handleClickMovie(movie.id)}>
                                         Ver más
@@ -112,7 +118,14 @@ export default function ContentMovies() {
                                 </div>
 
                                 {/** Guardar película en favoritos */}
-                                <button onClick={() => handleClickAddMovieToFavorites(movie)}>
+                                <button
+                                    aria-label={
+                                        favorites.some((fav) => fav.id === movie.id)
+                                            ? `Quitar ${movie.title} de favoritos`
+                                            : `Agregar ${movie.title} a favoritos`
+                                    }
+                                    onClick={() => handleClickAddMovieToFavorites(movie)}
+                                >
                                     <motion.div
                                         initial={false}
                                         animate={{

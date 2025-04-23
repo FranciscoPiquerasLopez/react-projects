@@ -16,7 +16,12 @@ export default function MobileMenuLeft() {
     return (
         <>
             {/** Hamburger menu icon */}
-            <button className='z-20 block md:hidden py-5 w-[50px]'>
+            <button
+                aria-label={hamburgerMenuIsChecked ? "Cerrar menú" : "Abrir menú"}
+                aria-expanded={hamburgerMenuIsChecked}
+                aria-controls="mobile-menu"
+                className='z-20 block md:hidden py-5 w-[50px]'
+            >
                 {
                     hamburgerMenuIsChecked
                         ? <X onClick={handleClickHamburgerMenu} className={`cursor-pointer absolute top-6 left-2 transition duration-500 ease-in-out ${hamburgerMenuIsChecked ? 'opacity-100' : 'opacity-0'}`} size={30} />
@@ -25,7 +30,12 @@ export default function MobileMenuLeft() {
             </button>
 
             {/** Menú */}
-            <div className={`pl-3 pt-15 absolute z-10 h-full top-0 left-0 w-full bg-[#000] text-white transition-transform duration-300 ease-in-out ${hamburgerMenuIsChecked ? 'transform translate-x-0' : '-translate-x-full'}`}>
+            <div
+                id="mobile-menu"
+                role="navigation"
+                aria-label="Menú principal"
+                className={`pl-3 pt-15 absolute z-10 h-full top-0 left-0 w-full bg-[#000] text-white transition-transform duration-300 ease-in-out ${hamburgerMenuIsChecked ? 'transform translate-x-0' : '-translate-x-full'}`}
+            >
                 <ul>
                     <li
                         onClick={() => setSection("peliculasPopulares")}
